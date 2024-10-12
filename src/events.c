@@ -22,8 +22,6 @@ static char nullString[] = " ";
 /// Event Defintions ///
 ////////////////////////
 
-// Lab
-// Match Data
 static EventMatchData Lab_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -32,28 +30,25 @@ static EventMatchData Lab_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = true,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = false,      // 0x10
-    .isCheckForZRetry = false,  // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = false,      
+    .isCheckForZRetry = false,  
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Lab = {
     // Event Name
     .eventName = "Training Lab\n",
@@ -70,8 +65,6 @@ EventDesc Lab = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData LCancel_MatchData = {
     .timer = MATCH_TIMER_HIDE,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -80,28 +73,25 @@ static EventMatchData LCancel_MatchData = {
     .hideReady = true,
     .isCreateHUD = false,
     .isDisablePause = true,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = false,      // 0x10
-    .isCheckForZRetry = false,  // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = false,      
+    .isCheckForZRetry = false,  
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc LCancel = {
     // Event Name
     .eventName = "L-Cancel Training\n",
@@ -118,7 +108,6 @@ EventDesc LCancel = {
 };
 
 // Ledgedash Training
-// Match Data
 static EventMatchData Ledgedash_MatchData = {
     .timer = MATCH_TIMER_HIDE,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -127,28 +116,25 @@ static EventMatchData Ledgedash_MatchData = {
     .hideReady = true,
     .isCreateHUD = false,
     .isDisablePause = true,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = false,      // 0x10
-    .isCheckForZRetry = false,  // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = false,      
+    .isCheckForZRetry = false,  
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Ledgedash = {
     .eventName = "Ledgedash Training\n",
     .eventDescription = "Practice Ledgedashes!\nUse D-Pad to change ledge.\n",
@@ -164,7 +150,6 @@ EventDesc Ledgedash = {
 };
 
 // Wavedash Training
-// Match Data
 static EventMatchData Wavedash_MatchData = {
     .timer = MATCH_TIMER_HIDE,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -173,28 +158,25 @@ static EventMatchData Wavedash_MatchData = {
     .hideReady = true,
     .isCreateHUD = false,
     .isDisablePause = true,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = false,      // 0x10
-    .isCheckForZRetry = false,  // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = false,      
+    .isCheckForZRetry = false,  
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Wavedash = {
     .eventName = "Wavedash Training\n",
     .eventDescription = "Practice timing your wavedash,\na fundamental movement technique.\n",
@@ -210,7 +192,6 @@ EventDesc Wavedash = {
 };
 
 // Combo Training
-// Match Data
 static EventMatchData Combo_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -219,28 +200,25 @@ static EventMatchData Combo_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Combo = {
 
     .eventName = "Combo Training\n",
@@ -257,7 +235,6 @@ EventDesc Combo = {
 };
 
 // Attack On Shield Training
-// Match Data
 static EventMatchData AttackOnShield_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -266,28 +243,25 @@ static EventMatchData AttackOnShield_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = 32,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc AttackOnShield = {
     .eventName = "Attack on Shield\n",
     .eventDescription = "Practice attacks on a shielding opponent\nPause to change their OoS option\n",
@@ -303,7 +277,6 @@ EventDesc AttackOnShield = {
 };
 
 // Reversal Training
-// Match Data
 static EventMatchData Reversal_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -312,28 +285,25 @@ static EventMatchData Reversal_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Reversal = {
     .eventName = "Reversal Training\n",
     .eventDescription = "Practice OoS punishes! DPad left/right\nmoves characters close and further apart.",
@@ -348,8 +318,6 @@ EventDesc Reversal = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData SDI_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -358,28 +326,25 @@ static EventMatchData SDI_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 2,         // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 2,         
+    .stage = 32,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc SDI = {
     .eventName = "SDI Training\n",
     .eventDescription = "Use Smash DI to escape\nFox's up-air attack!",
@@ -395,8 +360,6 @@ EventDesc SDI = {
 
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Powershield_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -405,28 +368,25 @@ static EventMatchData Powershield_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 20,        // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 20,        
+    .stage = 32,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Powershield = {
     .eventName = "Powershield Training\n",
     .eventDescription = "Powershield Falco's laser!\nPause to change to fire-rate.",
@@ -441,8 +401,6 @@ EventDesc Powershield = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Ledgetech_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -451,28 +409,25 @@ static EventMatchData Ledgetech_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 20,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 20,        
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Ledgetech = {
     .eventName = "Ledge-Tech Training\n",
     .eventDescription = "Practice ledge-teching\nFalco's down-smash",
@@ -487,8 +442,6 @@ EventDesc Ledgetech = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData AmsahTech_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -497,28 +450,25 @@ static EventMatchData AmsahTech_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 9,         
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc AmsahTech = {
     .eventName = "Amsah-Tech Training\n",
     .eventDescription = "Taunt to have Marth Up-B,\nthen ASDI down and tech!\n",
@@ -533,8 +483,6 @@ EventDesc AmsahTech = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData ShieldDrop_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -543,28 +491,25 @@ static EventMatchData ShieldDrop_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc ShieldDrop = {
     .eventName = "Shield Drop Training\n",
     .eventDescription = "Counter with a shield-drop aerial!\nDPad left/right moves players apart.",
@@ -579,8 +524,6 @@ EventDesc ShieldDrop = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData WaveshineSDI_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -589,28 +532,25 @@ static EventMatchData WaveshineSDI_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 2,         // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 2,         
+    .stage = 32,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc WaveshineSDI = {
     .eventName = "Waveshine SDI\n",
     .eventDescription = "Use Smash DI to get out\nof Fox's waveshine!",
@@ -625,8 +565,6 @@ EventDesc WaveshineSDI = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData SlideOff_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -635,28 +573,25 @@ static EventMatchData SlideOff_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = 3,           // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 9,         
+    .stage = 3,           
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc SlideOff = {
     .eventName = "Slide-Off Training\n",
     .eventDescription = "Use Slide-Off DI to slide off\nthe platform and counter attack!\n",
@@ -671,8 +606,6 @@ EventDesc SlideOff = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData GrabMash_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -681,28 +614,25 @@ static EventMatchData GrabMash_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 9,         
+    .stage = 32,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc GrabMash = {
     .eventName = "Grab Mash Training\n",
     .eventDescription = "Mash buttons to escape the grab\nas quickly as possible!\n",
@@ -717,8 +647,6 @@ EventDesc GrabMash = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData TechCounter_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -727,28 +655,25 @@ static EventMatchData TechCounter_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 9,         
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc TechCounter = {
     .eventName = "Ledgetech Marth Counter\n",
     .eventDescription = "Practice ledge-teching\nMarth's counter!\n",
@@ -763,8 +688,6 @@ EventDesc TechCounter = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData ArmadaShine_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -773,28 +696,25 @@ static EventMatchData ArmadaShine_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 2,         // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 2,         
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc ArmadaShine = {
     .eventName = "Edgeguard Firefox Training\n",
     .eventDescription = "Finish off the enemy Fox\nafter he uses Firefox!",
@@ -809,8 +729,6 @@ EventDesc ArmadaShine = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData SideBSweet_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -819,28 +737,25 @@ static EventMatchData SideBSweet_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 9,         
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc SideBSweet = {
     .eventName = "Side-B Sweetspot\n",
     .eventDescription = "Use a sweetspot Side-B to avoid Marth's\ndown-tilt and grab the ledge!",
@@ -855,8 +770,6 @@ EventDesc SideBSweet = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData EscapeSheik_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -865,28 +778,25 @@ static EventMatchData EscapeSheik_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 19,        // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 19,        
+    .stage = 32,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc EscapeSheik = {
     .eventName = "Escape Sheik Techchase\n",
     .eventDescription = "Practice escaping the tech chase with a\nframe perfect shine or jab SDI!\n",
@@ -901,8 +811,6 @@ EventDesc EscapeSheik = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Eggs_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -911,28 +819,25 @@ static EventMatchData Eggs_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = -1,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Eggs = {
     .eventName = "Eggs-ercise\n",
     .eventDescription = "Break the eggs! Only strong hits will\nbreak them. DPad down = free practice.",
@@ -947,8 +852,6 @@ EventDesc Eggs = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Multishine_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -957,28 +860,25 @@ static EventMatchData Multishine_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = 32,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Multishine = {
     .eventName = "Shined Blind\n",
     .eventDescription = "How many shines can you\nperform in 10 seconds?",
@@ -993,8 +893,6 @@ EventDesc Multishine = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Reaction_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -1003,28 +901,25 @@ static EventMatchData Reaction_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 2,         // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = 2,         
+    .stage = 32,          
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Reaction = {
     .eventName = "Reaction Test\n",
     .eventDescription = "Test your reaction time by pressing\nany button when you see/hear Fox shine!",
@@ -1039,8 +934,6 @@ EventDesc Reaction = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Ledgestall_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -1049,28 +942,25 @@ static EventMatchData Ledgestall_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
-
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .timerRunOnPause = false,   
+    .isHidePauseHUD = true,     
+    .isShowLRAStart = true,     
+    .isCheckForLRAStart = true, 
+    .isShowZRetry = true,       
+    .isCheckForZRetry = true,   
+    .isShowAnalogStick = true,  
+    .isShowScore = false,       
+    .isRunStockLogic = false, 
+    .isDisableHit = false,    
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = 6,           // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
+    .cpuKind = -1,        
+    .stage = 6,           
+    .timerSeconds = 0,    
+    .timerSubSeconds = 0, 
     .onCheckPause = 0,
     .onMatchEnd = 0,
 };
-// Event Struct
 EventDesc Ledgestall = {
     .eventName = "Under Fire\n",
     .eventDescription = "Ledgestall to remain\ninvincible while the lava rises!\n",
