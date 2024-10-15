@@ -13,9 +13,9 @@
 
     ##################################
     # Number of Events
-    .set Minigames.NumOfEvents, 4 -1
+    .set Minigames.NumOfEvents, 5 -1
 
-    .set Event_Eggs, 0
+    .set Event_Eggs, 1
     # Event Name
     .macro Event_Eggs_Name
     .string "Eggs-ercise"
@@ -35,7 +35,7 @@
     .byte KO
     .endm
 
-    .set Event_Multishine, 1
+    .set Event_Multishine, 2
     # Event Name
     .macro Event_Multishine_Name
     .string "Shined Blind"
@@ -58,7 +58,7 @@
     .byte KO
     .endm
 
-    .set Event_Reaction, 2
+    .set Event_Reaction, 3
     # Event Name
     .macro Event_Reaction_Name
     .string "Reaction Test"
@@ -78,7 +78,7 @@
     .byte KO
     .endm
 
-    .set Event_Ledgestall, 3
+    .set Event_Ledgestall, 4
     # Event Name
     .macro Event_Ledgestall_Name
     .string "Under Fire"
@@ -906,7 +906,6 @@ InitSettings:
     .set TextCreateFunction, 0x80005928
     .set GetCustomEventPageName, 0x8000552c
     .set SearchStringTable, 0x80005530
-    .set GetNumOfEventsOnCurrentPage, 0x80005534
     .set prim.new, 0x804DD84C
     .set prim.close, 0x804DD848
 
