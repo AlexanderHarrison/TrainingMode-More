@@ -253,7 +253,6 @@
     .set TextCreateFunction, 0x80005928
     .set GetCustomEventPageName, 0x8000552c
     .set SearchStringTable, 0x80005530
-    .set GetNumOfEventsOnCurrentPage, 0x80005534
     .set prim.new, 0x804DD84C
     .set prim.close, 0x804DD848
 
