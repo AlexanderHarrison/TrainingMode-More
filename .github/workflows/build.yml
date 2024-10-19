@@ -1,0 +1,58 @@
+name: Build ISO
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Docker container
+      run: |
+        docker pull devkitpro/devkitppc
+
+    - name: Download iso from secret URL
+      run: |
+        curl -L ${{ secrets.GAME_ISO_URL }} -o game.iso
+
+    - name: Install Rust, GCC, and build gc_fst inside Docker
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}:/workspace \
+          -w /workspace \
+          devkitpro/devkitppc \
+          bash -c "curl https://sh.rustup.rs -sSf | sh -s -- -y && \
+                  apt-get update && \
+                  apt-get install -y gcc && \
+                  export PATH=\$HOME/.cargo/bin:\$PATH && \
+                  rm -rf gc_fst && \
+                  git clone https://github.com/AlexanderHarrison/gc_fst.git gc_fst_src && \
+                  cd gc_fst_src && cargo build --release && \
+                  cp target/release/gc_fst /workspace && \
+                  cd /workspace && rm -rf gc_fst_src"
+
+    - name: Install xdelta3 and mono, and build the ISO inside Docker
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}:/workspace \
+          -w /workspace \
+          devkitpro/devkitppc \
+          bash -c "apt-get update && apt-get install -y xdelta3 mono-complete && \
+                  PATH=$PATH:/usr/bin && \
+                  bash -c 'make iso=game.iso iso'"
+
+    - name: Upload ISO
+      uses: actions/upload-artifact@v4
+      with:
+        name: TM-More.iso
+        path: TM-More.iso

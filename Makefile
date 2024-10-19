@@ -51,7 +51,7 @@ build/Start.dol: | build
 	xdelta3 -d -f -s build/Start.dol "Build TM Start.dol/patch.xdelta" build/Start.dol
 
 TM-More.iso: build/Start.dol build/codes.gct $(dats)
-	if [[ ! -f TM-More.iso ]]; then cp ${iso} TM-More.iso; fi
+	if [ ! -f TM-More.iso ]; then cp ${iso} TM-More.iso; fi
 	./gc_fst fs TM-More.iso \
 		delete MvHowto.mth \
 		delete MvOmake15.mth \
