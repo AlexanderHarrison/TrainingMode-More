@@ -105,3 +105,8 @@ memory in the small data area, but there is some code in the repository that doe
   I'm pretty sure the mex import asm files are newer.
   Should I convert the old style asm files to new ones?
   If so, how?
+
+## PRIM Lite
+
+PRIM Lite is a drawing module developed by punkline. There may be better ways to draw geometry, but I don't know 
+how. Currently it's used by the DI draw code. See documentation at [this smashboards thread](https://smashboards.com/threads/primitive-drawing-module.454232/)

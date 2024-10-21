@@ -86,7 +86,7 @@ void Event_Init(GOBJ *gobj)
     event_vars = *event_vars_ptr;
 
     // get l-cancel assets
-    event_data->lcancel_assets = File_GetSymbol(event_vars->event_archive, "lcancel");
+    event_data->lcancel_assets = Archive_GetPublicAddress(event_vars->event_archive, "lcancel");
 
     // create HUD
     LCancel_Init(event_data);
@@ -106,7 +106,7 @@ void Event_Think(GOBJ *event)
     FighterData *hmn_data = hmn->userdata;
     //GOBJ *cpu = Fighter_GetGObj(1);
     //FighterData *cpu_data = cpu->userdata;
-    HSD_Pad *pad = PadGet(hmn_data->player_controller_number, PADGET_ENGINE);
+    HSD_Pad *pad = PadGet(hmn_data->pad_index, PADGET_ENGINE);
 
     /*
     // give intangibility to cpu
@@ -164,8 +164,8 @@ void Event_Think(GOBJ *event)
 
                             // update camera box
                             Fighter_UpdateCameraBox(this_fighter);
-                            this_fighter_data->cameraBox->boundleft_curr = this_fighter_data->cameraBox->boundleft_proj;
-                            this_fighter_data->cameraBox->boundright_curr = this_fighter_data->cameraBox->boundright_proj;
+                            this_fighter_data->camera_subject->boundleft_curr = this_fighter_data->camera_subject->boundleft_proj;
+                            this_fighter_data->camera_subject->boundright_curr = this_fighter_data->camera_subject->boundright_proj;
 
                             // set grounded
                             this_fighter_data->phys.air_state = 0;
@@ -233,8 +233,8 @@ void Event_Exit()
     Match_EndVS();
 
     // unfreeze
-    HSD_Update *update = HSD_UPDATE;
-    update->pause_develop = 0;
+    HSD_Update *update = stc_hsd_update;
+    update->pause_kind = PAUSEKIND_NONE;
     return;
 }
 
@@ -244,8 +244,7 @@ void LCancel_Init(LCancelData *event_data)
 
     // create hud cobj
     GOBJ *hudcam_gobj = GObj_Create(19, 20, 0);
-    ArchiveInfo **ifall_archive = 0x804d6d5c;
-    COBJDesc ***dmgScnMdls = File_GetSymbol(*ifall_archive, 0x803f94d0);
+    COBJDesc ***dmgScnMdls = Archive_GetPublicAddress(*stc_ifall_archive, 0x803f94d0);
     COBJDesc *cam_desc = dmgScnMdls[1][0];
     COBJ *hud_cobj = COBJ_LoadDesc(cam_desc);
     // init camera
@@ -294,8 +293,8 @@ void LCancel_Init(LCancelData *event_data)
         // adjust scale
         Vec3 *scale = &hud_jobj->scale;
         // text scale
-        hud_text->scale.X = (scale->X * 0.01) * LCLTEXT_SCALE;
-        hud_text->scale.Y = (scale->Y * 0.01) * LCLTEXT_SCALE;
+        hud_text->viewport_scale.X = (scale->X * 0.01) * LCLTEXT_SCALE;
+        hud_text->viewport_scale.Y = (scale->Y * 0.01) * LCLTEXT_SCALE;
         hud_text->aspect.X = 165;
 
         // text position
@@ -326,7 +325,7 @@ void LCancel_Think(LCancelData *event_data, FighterData *hmn_data)
 
     // log fastfall frame
     // if im in a fastfall-able state
-    int state = hmn_data->state;
+    int state = hmn_data->state_id;
     //if ((state == ASID_JUMPF) || (state == ASID_JUMPB) || (state == ASID_JUMPAERIALF) || (state == ASID_JUMPAERIALB) || (state == ASID_FALL) || (state == ASID_FALLAERIAL) || ((state >= ASID_ATTACKAIRN) && (state <= ASID_ATTACKAIRLW))
     {
         if (hmn_data->phys.self_vel.Y < 0) // can i fastfall?
@@ -344,7 +343,7 @@ void LCancel_Think(LCancelData *event_data, FighterData *hmn_data)
     }
 
     // if aerial landing
-    if (((hmn_data->state >= ASID_LANDINGAIRN) && (hmn_data->state <= ASID_LANDINGAIRLW)) && (hmn_data->TM.state_frame == 0))
+    if (((hmn_data->state_id >= ASID_LANDINGAIRN) && (hmn_data->state_id <= ASID_LANDINGAIRLW)) && (hmn_data->TM.state_frame == 0))
     {
         // increment total lcls
         event_data->hud.lcl_total++;
@@ -404,8 +403,8 @@ void LCancel_Think(LCancelData *event_data, FighterData *hmn_data)
     }
 
     // if autocancel landing
-    if (((hmn_data->state == ASID_LANDING) && (hmn_data->TM.state_frame == 0)) &&                   // if first frame of landing
-        ((hmn_data->TM.state_prev[0] >= ASID_ATTACKAIRN) && (hmn_data->state <= ASID_ATTACKAIRLW))) // came from aerial attack
+    if (((hmn_data->state_id == ASID_LANDING) && (hmn_data->TM.state_frame == 0)) &&                   // if first frame of landing
+        ((hmn_data->TM.state_prev[0] >= ASID_ATTACKAIRN) && (hmn_data->state_id <= ASID_ATTACKAIRLW))) // came from aerial attack
     {
         // state as autocancelled
         Text_SetText(event_data->hud.text_time, 0, "Auto-canceled");
@@ -470,7 +469,7 @@ void Tips_Think(LCancelData *event_data, FighterData *hmn_data)
 
             // update tip conditions
             // look for a freshly buffered guard off
-            if (((hmn_data->state == ASID_GUARDOFF) && (hmn_data->TM.state_frame == 0)) &&                               // currently in guardoff first frame
+            if (((hmn_data->state_id == ASID_GUARDOFF) && (hmn_data->TM.state_frame == 0)) &&                               // currently in guardoff first frame
                 (hmn_data->TM.state_prev[0] == ASID_GUARD) &&                                                            // was just in wait
                 ((hmn_data->TM.state_prev[3] >= ASID_LANDINGAIRN) && (hmn_data->TM.state_prev[3] <= ASID_LANDINGAIRLW))) // was in aerial landing a few frames ago
             {
@@ -496,7 +495,7 @@ void Tips_Think(LCancelData *event_data, FighterData *hmn_data)
         if (event_data->tip.hitbox_isdisp == 0) // if not shown
         {
             // update hitbox active bool
-            if ((hmn_data->state >= ASID_ATTACKAIRN) && (hmn_data->state <= ASID_ATTACKAIRLW)) // check if currently in aerial attack)                                                      // check if in first frame of aerial attack
+            if ((hmn_data->state_id >= ASID_ATTACKAIRN) && (hmn_data->state_id <= ASID_ATTACKAIRLW)) // check if currently in aerial attack)                                                      // check if in first frame of aerial attack
             {
 
                 // reset hitbox bool on first frame of aerial attack
@@ -515,7 +514,7 @@ void Tips_Think(LCancelData *event_data, FighterData *hmn_data)
             }
 
             // update tip conditions
-            if ((hmn_data->state >= ASID_LANDINGAIRN) && (hmn_data->state <= ASID_LANDINGAIRLW) && (hmn_data->TM.state_frame == 0) && // is in aerial landing
+            if ((hmn_data->state_id >= ASID_LANDINGAIRN) && (hmn_data->state_id <= ASID_LANDINGAIRLW) && (hmn_data->TM.state_frame == 0) && // is in aerial landing
                 (event_data->is_fail == 0) &&
                 (event_data->tip.hitbox_active == 0)) // succeeded the last aerial landing
             {
@@ -542,7 +541,7 @@ void Tips_Think(LCancelData *event_data, FighterData *hmn_data)
         if (event_data->tip.fastfall_isdisp == 0) // if not shown
         {
             // update fastfell bool
-            if ((hmn_data->state >= ASID_ATTACKAIRN) && (hmn_data->state <= ASID_ATTACKAIRLW)) // check if currently in aerial attack)                                                      // check if in first frame of aerial attack
+            if ((hmn_data->state_id >= ASID_ATTACKAIRN) && (hmn_data->state_id <= ASID_ATTACKAIRLW)) // check if currently in aerial attack)                                                      // check if in first frame of aerial attack
             {
 
                 // reset hitbox bool on first frame of aerial attack
@@ -555,7 +554,7 @@ void Tips_Think(LCancelData *event_data, FighterData *hmn_data)
             }
 
             // update tip conditions
-            if ((hmn_data->state >= ASID_LANDINGAIRN) && (hmn_data->state <= ASID_LANDINGAIRLW) && (hmn_data->TM.state_frame == 0) &&  // is in aerial landing
+            if ((hmn_data->state_id >= ASID_LANDINGAIRN) && (hmn_data->state_id <= ASID_LANDINGAIRLW) && (hmn_data->TM.state_frame == 0) &&  // is in aerial landing
                 ((hmn_data->input.timer_trigger_any_ignore_hitlag >= 7) && (hmn_data->input.timer_trigger_any_ignore_hitlag <= 15)) && // was early for an l-cancel
                 (event_data->tip.fastfall_active == 0))                                                                                // succeeded the last aerial landing
             {
@@ -583,7 +582,7 @@ void Tips_Think(LCancelData *event_data, FighterData *hmn_data)
         {
 
             // update tip conditions
-            if ((hmn_data->state >= ASID_LANDINGAIRN) && (hmn_data->state <= ASID_LANDINGAIRLW) && // is in aerial landing
+            if ((hmn_data->state_id >= ASID_LANDINGAIRN) && (hmn_data->state_id <= ASID_LANDINGAIRLW) && // is in aerial landing
                 (event_data->is_fail == 1) &&                                                      // failed the l-cancel
                 (hmn_data->input.down & (HSD_TRIGGER_L | HSD_TRIGGER_R | HSD_TRIGGER_Z)))          // was late for an l-cancel by pressing it just now
             {
@@ -802,15 +801,18 @@ GOBJ *Barrel_Spawn(int pos_kind)
     spawnItem.damage = 0;
     spawnItem.unk5 = 0;
     spawnItem.unk6 = 0;
-    spawnItem.unk7 = 0x80;
+    spawnItem.is_raycast_below = 1;
     spawnItem.is_spin = 0;
     GOBJ *barrel_gobj = Item_CreateItem2(&spawnItem);
-    Item_CollAir(barrel_gobj, Barrel_Null);
+    Item_CollAir_Bounce(barrel_gobj, Barrel_Null);
 
     // replace collision callback
     ItemData *barrel_data = barrel_gobj->userdata;
-    barrel_data->it_cb = item_callbacks;
-    barrel_data->camerabox->kind = 0;
+    barrel_data->it_func = item_callbacks;
+    // TODO replace functions individually
+    // barrel_data->it_func->OnDestroy = Barrel_OnDestroy;
+    // barrel_data->it_func->OnHurt = Barrel_OnHurt;
+    barrel_data->camera_subject->kind = 0;
 
     // update last barrel pos
     event_data->barrel_lastpos = pos;
@@ -833,8 +835,8 @@ void Barrel_Break(GOBJ *barrel_gobj)
     barrel_data->xd0c = 2;
     barrel_data->self_vel.X = 0;
     barrel_data->self_vel.Y = 0;
-    barrel_data->itemVar1 = 1;
-    barrel_data->itemVar2 = 40;
+    barrel_data->item_var.var1 = 1;
+    barrel_data->item_var.var2 = 40;
     barrel_data->xdcf3 = 1;
     ItemStateChange(barrel_gobj, 7, 2);
 

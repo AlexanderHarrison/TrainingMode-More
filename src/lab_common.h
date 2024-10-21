@@ -254,7 +254,7 @@ typedef struct RecInputData
 {
     int start_frame; // the frame these inputs start on
     int num;
-    RecInputs inputs[REC_LENGTH]
+    RecInputs inputs[REC_LENGTH];
 } RecInputData;
 typedef struct RecData
 {

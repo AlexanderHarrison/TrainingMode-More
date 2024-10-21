@@ -1,28 +1,27 @@
 #ifndef MEX_H_COLOR
 #define MEX_H_COLOR
 
+#include "gx.h"
 #include "structs.h"
 #include "datatypes.h"
 
 /*** Structs ***/
 
-struct GXColor
+struct ColAnimDesc // in PlCo
 {
-    u8 r;
-    u8 g;
-    u8 b;
-    u8 a;
+    u8 *cmd_data; // 0x0
+    u8 priority;  // 0x4
+    u8 x5;        // 0x5, forget what this does
 };
-
 struct ColorOverlay
 {
     int timer;                      // 0x0
     int pri;                        // 0x4  this colanims priority, lower = will persist
-    int *ptr1;                      // 0x8
+    void *ptr1;                     // 0x8
     int loop;                       // 0xc
-    int *ptr2;                      // 0x10
+    void *ptr2;                     // 0x10
     int x14;                        // 0x14
-    int *alloc;                     // 0x18
+    void *alloc;                    // 0x18
     int x1c;                        // 0x1c
     int x20;                        // 0x20
     int x24;                        // 0x24
@@ -36,7 +35,7 @@ struct ColorOverlay
     float colorblend_green;         // 0x44
     float colorblend_blue;          // 0x48
     float colorblend_alpha;         // 0x4C
-    GXColor light_color;            //0x50
+    GXColor light_color;            // 0x50
     float light_red;                // 0x54
     float light_green;              // 0x58
     float light_blue;               // 0x5C
@@ -47,14 +46,17 @@ struct ColorOverlay
     float lightblend_alpha;         // 0x70
     float light_angle;              // 0x74
     float light_unk;                // 0x78
-    unsigned char color_enable : 1; // 0x7c
-    unsigned char flag2 : 1;        // 0x7c
-    unsigned char light_enable : 1; // 0x7c
-    unsigned char flag4 : 1;        // 0x7c
-    unsigned char flag5 : 1;        // 0x7c
-    unsigned char flag6 : 1;        // 0x7c
-    unsigned char flag7 : 1;        // 0x7c
-    unsigned char flag8 : 1;        // 0x7c
+    unsigned char color_enable : 1; // 0x7c, 0x80
+    unsigned char flag2 : 1;        // 0x7c, 0x40
+    unsigned char light_enable : 1; // 0x7c, 0x20
+    unsigned char flag4 : 1;        // 0x7c, 0x10
+    unsigned char flag5 : 1;        // 0x7c, 0x08
+    unsigned char flag6 : 1;        // 0x7c, 0x04
+    unsigned char flag7 : 1;        // 0x7c, 0x02
+    unsigned char flag8 : 1;        // 0x7c, 0x01
 };
+
+void ColAnim_Apply(ColorOverlay *col, void *colanim_data, int colanim_index, int r6);
+void ColAnim_Disable(ColorOverlay *col);
 
 #endif

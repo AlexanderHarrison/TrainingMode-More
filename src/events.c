@@ -23,7 +23,6 @@ static char nullString[] = " ";
 ////////////////////////
 
 // Lab
-// Match Data
 static EventMatchData Lab_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -32,28 +31,24 @@ static EventMatchData Lab_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = true,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = false,      // 0x10
-    .isCheckForZRetry = false,  // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = false,
+    .isCheckForZRetry = false,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Lab = {
     // Event Name
     .eventName = "Training Lab\n",
@@ -72,7 +67,6 @@ EventDesc Lab = {
 };
 
 // L-Cancel Training
-// Match Data
 static EventMatchData LCancel_MatchData = {
     .timer = MATCH_TIMER_HIDE,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -81,28 +75,24 @@ static EventMatchData LCancel_MatchData = {
     .hideReady = true,
     .isCreateHUD = false,
     .isDisablePause = true,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = false,      // 0x10
-    .isCheckForZRetry = false,  // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = false,
+    .isCheckForZRetry = false,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc LCancel = {
     // Event Name
     .eventName = "L-Cancel Training\n",
@@ -120,7 +110,6 @@ EventDesc LCancel = {
 };
 
 // Ledgedash Training
-// Match Data
 static EventMatchData Ledgedash_MatchData = {
     .timer = MATCH_TIMER_HIDE,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -129,28 +118,24 @@ static EventMatchData Ledgedash_MatchData = {
     .hideReady = true,
     .isCreateHUD = false,
     .isDisablePause = true,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = false,      // 0x10
-    .isCheckForZRetry = false,  // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = false,
+    .isCheckForZRetry = false,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Ledgedash = {
     .eventName = "Ledgedash Training\n",
     .eventDescription = "Practice Ledgedashes!\nUse D-Pad to change ledge.\n",
@@ -167,7 +152,6 @@ EventDesc Ledgedash = {
 };
 
 // Wavedash Training
-// Match Data
 static EventMatchData Wavedash_MatchData = {
     .timer = MATCH_TIMER_HIDE,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -176,28 +160,24 @@ static EventMatchData Wavedash_MatchData = {
     .hideReady = true,
     .isCreateHUD = false,
     .isDisablePause = true,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = false,      // 0x10
-    .isCheckForZRetry = false,  // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = false,
+    .isCheckForZRetry = false,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Wavedash = {
     .eventName = "Wavedash Training\n",
     .eventDescription = "Practice timing your wavedash,\na fundamental movement technique.\n",
@@ -214,7 +194,6 @@ EventDesc Wavedash = {
 };
 
 // Combo Training
-// Match Data
 static EventMatchData Combo_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -223,28 +202,24 @@ static EventMatchData Combo_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Combo = {
 
     .eventName = "Combo Training\n",
@@ -262,7 +237,6 @@ EventDesc Combo = {
 };
 
 // Attack On Shield Training
-// Match Data
 static EventMatchData AttackOnShield_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -271,28 +245,24 @@ static EventMatchData AttackOnShield_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = 32,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc AttackOnShield = {
     .eventName = "Attack on Shield\n",
     .eventDescription = "Practice attacks on a shielding opponent\nPause to change their OoS option\n",
@@ -309,7 +279,6 @@ EventDesc AttackOnShield = {
 };
 
 // Reversal Training
-// Match Data
 static EventMatchData Reversal_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -318,28 +287,24 @@ static EventMatchData Reversal_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Reversal = {
     .eventName = "Reversal Training\n",
     .eventDescription = "Practice OoS punishes! DPad left/right\nmoves characters close and further apart.",
@@ -355,8 +320,6 @@ EventDesc Reversal = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData SDI_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -365,28 +328,24 @@ static EventMatchData SDI_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 2,         // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 2,
+    .stage = 32,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc SDI = {
     .eventName = "SDI Training\n",
     .eventDescription = "Use Smash DI to escape\nFox's up-air attack!",
@@ -403,8 +362,6 @@ EventDesc SDI = {
 
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Powershield_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -413,28 +370,24 @@ static EventMatchData Powershield_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 20,        // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 20,
+    .stage = 32,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Powershield = {
     .eventName = "Powershield Training\n",
     .eventDescription = "Powershield Falco's laser!\nPause to change to fire-rate.",
@@ -450,8 +403,6 @@ EventDesc Powershield = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Ledgetech_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -460,28 +411,24 @@ static EventMatchData Ledgetech_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 20,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 20,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Ledgetech = {
     .eventName = "Ledge-Tech Training\n",
     .eventDescription = "Practice ledge-teching\nFalco's down-smash",
@@ -497,8 +444,6 @@ EventDesc Ledgetech = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData AmsahTech_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -507,28 +452,24 @@ static EventMatchData AmsahTech_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 9,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc AmsahTech = {
     .eventName = "Amsah-Tech Training\n",
     .eventDescription = "Taunt to have Marth Up-B,\nthen ASDI down and tech!\n",
@@ -544,8 +485,6 @@ EventDesc AmsahTech = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData ShieldDrop_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -554,28 +493,24 @@ static EventMatchData ShieldDrop_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc ShieldDrop = {
     .eventName = "Shield Drop Training\n",
     .eventDescription = "Counter with a shield-drop aerial!\nDPad left/right moves players apart.",
@@ -591,8 +526,6 @@ EventDesc ShieldDrop = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData WaveshineSDI_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -601,28 +534,24 @@ static EventMatchData WaveshineSDI_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 2,         // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 2,
+    .stage = 32,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc WaveshineSDI = {
     .eventName = "Waveshine SDI\n",
     .eventDescription = "Use Smash DI to get out\nof Fox's waveshine!",
@@ -638,8 +567,6 @@ EventDesc WaveshineSDI = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData SlideOff_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -648,28 +575,24 @@ static EventMatchData SlideOff_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = 3,           // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 9,
+    .stage = 3,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc SlideOff = {
     .eventName = "Slide-Off Training\n",
     .eventDescription = "Use Slide-Off DI to slide off\nthe platform and counter attack!\n",
@@ -685,8 +608,6 @@ EventDesc SlideOff = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData GrabMash_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -695,28 +616,24 @@ static EventMatchData GrabMash_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 9,
+    .stage = 32,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc GrabMash = {
     .eventName = "Grab Mash Training\n",
     .eventDescription = "Mash buttons to escape the grab\nas quickly as possible!\n",
@@ -732,8 +649,6 @@ EventDesc GrabMash = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData TechCounter_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -742,28 +657,24 @@ static EventMatchData TechCounter_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 9,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc TechCounter = {
     .eventName = "Ledgetech Marth Counter\n",
     .eventDescription = "Practice ledge-teching\nMarth's counter!\n",
@@ -779,8 +690,6 @@ EventDesc TechCounter = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData ArmadaShine_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -789,28 +698,24 @@ static EventMatchData ArmadaShine_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 2,         // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 2,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc ArmadaShine = {
     .eventName = "Edgeguard Firefox Training\n",
     .eventDescription = "Finish off the enemy Fox\nafter he uses Firefox!",
@@ -826,8 +731,6 @@ EventDesc ArmadaShine = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData SideBSweet_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -836,28 +739,24 @@ static EventMatchData SideBSweet_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 9,         // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 9,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc SideBSweet = {
     .eventName = "Side-B Sweetspot\n",
     .eventDescription = "Use a sweetspot Side-B to avoid Marth's\ndown-tilt and grab the ledge!",
@@ -873,8 +772,6 @@ EventDesc SideBSweet = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData EscapeSheik_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -883,28 +780,24 @@ static EventMatchData EscapeSheik_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 19,        // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 19,
+    .stage = 32,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc EscapeSheik = {
     .eventName = "Escape Sheik Techchase\n",
     .eventDescription = "Practice escaping the tech chase with a\nframe perfect shine or jab SDI!\n",
@@ -920,8 +813,6 @@ EventDesc EscapeSheik = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Eggs_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -930,28 +821,24 @@ static EventMatchData Eggs_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = -1,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Eggs = {
     .eventName = "Eggs-ercise\n",
     .eventDescription = "Break the eggs! Only strong hits will\nbreak them. DPad down = free practice.",
@@ -967,8 +854,6 @@ EventDesc Eggs = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Multishine_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -977,28 +862,24 @@ static EventMatchData Multishine_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = 32,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Multishine = {
     .eventName = "Shined Blind\n",
     .eventDescription = "How many shines can you\nperform in 10 seconds?",
@@ -1014,8 +895,6 @@ EventDesc Multishine = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Reaction_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -1024,28 +903,24 @@ static EventMatchData Reaction_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = 2,         // 0xFF=
-    .stage = 32,          // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = 2,
+    .stage = 32,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Reaction = {
     .eventName = "Reaction Test\n",
     .eventDescription = "Test your reaction time by pressing\nany button when you see/hear Fox shine!",
@@ -1061,8 +936,6 @@ EventDesc Reaction = {
     .defaultOSD = 0xFFFFFFFF,
 };
 
-// L-Cancel Training
-// Match Data
 static EventMatchData Ledgestall_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -1071,28 +944,24 @@ static EventMatchData Ledgestall_MatchData = {
     .hideReady = true,
     .isCreateHUD = true,
     .isDisablePause = false,
-    // byte 0x3
-    .timerRunOnPause = false,   // 0x01
-    .isHidePauseHUD = true,     // 0x02
-    .isShowLRAStart = true,     // 0x04
-    .isCheckForLRAStart = true, // 0x08
-    .isShowZRetry = true,       // 0x10
-    .isCheckForZRetry = true,   // 0x20
-    .isShowAnalogStick = true,  // 0x40
-    .isShowScore = false,       // 0x80
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
 
-    .isRunStockLogic = false, // 0x20
-    .isDisableHit = false,    // 0x20
+    .isRunStockLogic = false,
+    .isDisableHit = false,
     .useKOCounter = false,
     .playerKind = -1,
-    .cpuKind = -1,        // 0xFF=
-    .stage = 6,           // 0xFFFF
-    .timerSeconds = 0,    // 0xFFFFFFFF
-    .timerSubSeconds = 0, // 0xFF
-    .onCheckPause = 0,
-    .onMatchEnd = 0,
+    .cpuKind = -1,
+    .stage = 6,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
 };
-// Event Struct
 EventDesc Ledgestall = {
     .eventName = "Under Fire\n",
     .eventDescription = "Ledgestall to remain\ninvincible while the lava rises!\n",
@@ -1218,8 +1087,8 @@ void EventInit(int page, int eventID, MatchInit *matchData)
     matchData->unk2 = 1;
     matchData->unk7 = 1;
     matchData->isCheckStockSteal = 1;
-    matchData->unk10 = 3;
-    matchData->isSkipEndCheck = 1;
+    matchData->unk1f = 3;
+    matchData->no_check_end = 1;
     matchData->itemFreq = MATCH_ITEMFREQ_OFF;
     matchData->onStartMelee = EventLoad;
 
@@ -1241,11 +1110,9 @@ void EventInit(int page, int eventID, MatchInit *matchData)
     matchData->isShowAnalogStick = eventMatchData->isShowAnalogStick;
     matchData->isShowScore = eventMatchData->isShowScore;
     matchData->isRunStockLogic = eventMatchData->isRunStockLogic;
-    matchData->isDisableHit = eventMatchData->isDisableHit;
-    matchData->timerSeconds = eventMatchData->timerSeconds;
-    matchData->timerSubSeconds = eventMatchData->timerSubSeconds;
-    matchData->onCheckPause = eventMatchData->onCheckPause;
-    matchData->onMatchEnd = eventMatchData->onMatchEnd;
+    matchData->no_hit = eventMatchData->isDisableHit;
+    matchData->timer_seconds = eventMatchData->timerSeconds;
+    matchData->timer_subseconds = eventMatchData->timerSubSeconds;
 
     // Initialize all player data
     Memcard *memcard = R13_PTR(MEMCARD);
@@ -1287,14 +1154,14 @@ void EventInit(int page, int eventID, MatchInit *matchData)
     // use the fighter chosen on the CSS
     else
     {
-        playerKind = preload->fighters[0].kind;
-        playerCostume = preload->fighters[0].costume;
+        playerKind = preload->queued.fighters[0].kind;
+        playerCostume = preload->queued.fighters[0].costume;
     }
 
-    if (event->force_sopo && playerKind == 14)
+    if (event->force_sopo && playerKind == CKIND_ICECLIMBERS)
     {
         // Change ICs to Popo
-        playerKind = 32;
+        playerKind = CKIND_POPO;
     }
 
     // Determine the CPU
@@ -1303,14 +1170,14 @@ void EventInit(int page, int eventID, MatchInit *matchData)
     // If isChooseCPU is true, use the selected CPU
     if (event->isChooseCPU)
     {
-        cpuKind = preload->fighters[1].kind;
-        cpuCostume = preload->fighters[1].costume;
+        cpuKind = preload->queued.fighters[1].kind;
+        cpuCostume = preload->queued.fighters[1].costume;
 
         // change zelda to sheik
-        if (cpuKind == 18)
+        if (cpuKind == CKIND_ZELDA)
         {
-            cpuKind = 19;
-            preload->fighters[1].kind = cpuKind;
+            cpuKind = CKIND_SHEIK;
+            preload->queued.fighters[1].kind = cpuKind;
         }
     }
     // If isChooseCPU is false, copy the CPU from event data
@@ -1329,17 +1196,17 @@ void EventInit(int page, int eventID, MatchInit *matchData)
     }
 
     // Copy player data to match info struct (update their rumble setting 801bb1ec)
-    matchData->playerData[0].kind = playerKind;
+    matchData->playerData[0].c_kind = playerKind;
     matchData->playerData[0].costume = playerCostume;
-    matchData->playerData[0].status = 0;
+    matchData->playerData[0].p_kind = PKIND_HMN;
     matchData->playerData[0].portNumberOverride = hmn_port;
 
     // Copy CPU if they exist for this event
     if (cpuKind != -1)
     {
-        matchData->playerData[1].kind = cpuKind;
+        matchData->playerData[1].c_kind = cpuKind;
         matchData->playerData[1].costume = cpuCostume;
-        matchData->playerData[1].status = 1;
+        matchData->playerData[1].p_kind = PKIND_CPU;
         matchData->playerData[1].portNumberOverride = cpu_port;
     }
 
@@ -1347,7 +1214,7 @@ void EventInit(int page, int eventID, MatchInit *matchData)
     int hudPos = 0;
     for (int i = 0; i < 6; i++)
     {
-        if (matchData->playerData[i].status != 3)
+        if (matchData->playerData[i].p_kind != PKIND_NONE)
             hudPos++;
     }
     matchData->hudPos = hudPos;
@@ -1357,7 +1224,7 @@ void EventInit(int page, int eventID, MatchInit *matchData)
     // If isSelectStage is true, use the selected stage
     if (event->isSelectStage == true)
     {
-        stage = preload->stage;
+        stage = preload->queued.stage;
     }
     // If isSelectStage is false, copy the stage from event data
     else
@@ -1390,7 +1257,7 @@ void EventLoad()
     sprintf(buffer, extension, event_desc->eventFile);
 
     // load this events file
-    ArchiveInfo *archive = MEX_LoadRelArchive(buffer, evFunction, "evFunction");
+    HSD_Archive *archive = MEX_LoadRelArchive(buffer, evFunction, "evFunction");
     stc_event_vars.event_archive = archive;
 
     // Create this event's gobj
@@ -1434,7 +1301,7 @@ void EventLoad()
     }
 
     // Store update function
-    HSD_Update *update = HSD_UPDATE;
+    HSD_Update *update = stc_hsd_update;
     update->onFrame = EventUpdate;
 
     return;
@@ -1528,10 +1395,10 @@ void TM_CreateConsole()
     return;
 }
 
-void OnFileLoad(ArchiveInfo *archive) // this function is run right after TmDt is loaded into memory on boot
+void OnFileLoad(HSD_Archive *archive) // this function is run right after TmDt is loaded into memory on boot
 {
     // init event menu assets
-    stc_event_vars.menu_assets = File_GetSymbol(archive, "eventMenu");
+    stc_event_vars.menu_assets = Archive_GetPublicAddress(archive, "eventMenu");
 
     // store pointer to static variables
     *event_vars_ptr = &stc_event_vars;
@@ -1611,7 +1478,7 @@ int Savestate_Save(Savestate *savestate)
     //       (fighter_data->heldItem != 0) ||
     //       (fighter_data->x1978 != 0) ||
     //       (fighter_data->accessory != 0) ||
-    //       ((fighter_data->kind == 8) && ((fighter_data->state >= 342) && (fighter_data->state <= 344)))) // hardcode ness' usmash because it doesnt destroy the yoyo via onhit callback...
+    //       ((fighter_data->kind == FTKIND_NESS) && ((fighter_data->state_id >= 342) && (fighter_data->state_id <= 344)))) // hardcode ness' usmash because it doesnt destroy the yoyo via onhit callback...
     //    {
     //       // cannot save
     //       canSave = 0;
@@ -1658,7 +1525,7 @@ int Savestate_Save(Savestate *savestate)
             if (queue[0].fighter != 0)
             {
 
-                FtState *ft_state = &savestate->ft_state[i];
+                FtSaveState *ft_state = &savestate->ft_state[i];
 
                 isSaved = 1;
 
@@ -1677,31 +1544,31 @@ int Savestate_Save(Savestate *savestate)
                     if (queue[j].fighter != 0)
                     {
 
-                        FtStateData *ft_data = &ft_state->data[j];
+                        FtSaveStateData *ft_data = &ft_state->data[j];
                         FighterData *fighter_data = queue[j].fighter_data;
 
                         // backup to ft_state
                         ft_data->is_exist = 1;
-                        ft_data->state = fighter_data->state;
+                        ft_data->state_id = fighter_data->state_id;
                         ft_data->facing_direction = fighter_data->facing_direction;
-                        ft_data->stateFrame = fighter_data->stateFrame;
-                        ft_data->stateSpeed = fighter_data->stateSpeed;
-                        ft_data->stateBlend = fighter_data->stateBlend;
+                        ft_data->state_frame = fighter_data->state.frame;
+                        ft_data->state_rate = fighter_data->state.rate;
+                        ft_data->state_blend = fighter_data->state.blend;
                         memcpy(&ft_data->phys, &fighter_data->phys, sizeof(fighter_data->phys));                               // copy physics
                         memcpy(&ft_data->color, &fighter_data->color, sizeof(fighter_data->color));                            // copy color overlay
                         memcpy(&ft_data->input, &fighter_data->input, sizeof(fighter_data->input));                            // copy inputs
                         memcpy(&ft_data->coll_data, &fighter_data->coll_data, sizeof(fighter_data->coll_data));                // copy collision
-                        memcpy(&ft_data->cameraBox, fighter_data->cameraBox, sizeof(CameraBox));                               // copy camerabox
+                        memcpy(&ft_data->camera_subject, fighter_data->camera_subject, sizeof(CmSubject));                     // copy camerabox
                         memcpy(&ft_data->hitbox, &fighter_data->hitbox, sizeof(fighter_data->hitbox));                         // copy hitbox
                         memcpy(&ft_data->throw_hitbox, &fighter_data->throw_hitbox, sizeof(fighter_data->throw_hitbox));       // copy hitbox
-                        memcpy(&ft_data->unk_hitbox, &fighter_data->unk_hitbox, sizeof(fighter_data->unk_hitbox));             // copy hitbox
+                        memcpy(&ft_data->thrown_hitbox, &fighter_data->thrown_hitbox, sizeof(fighter_data->thrown_hitbox));    // copy hitbox
                         memcpy(&ft_data->flags, &fighter_data->flags, sizeof(fighter_data->flags));                            // copy flags
                         memcpy(&ft_data->fighter_var, &fighter_data->fighter_var, sizeof(fighter_data->fighter_var));          // copy var
                         memcpy(&ft_data->state_var, &fighter_data->state_var, sizeof(fighter_data->state_var));                // copy var
                         memcpy(&ft_data->ftcmd_var, &fighter_data->ftcmd_var, sizeof(fighter_data->ftcmd_var));                // copy var
                         memcpy(&ft_data->jump, &fighter_data->jump, sizeof(fighter_data->jump));                               // copy var
                         memcpy(&ft_data->smash, &fighter_data->smash, sizeof(fighter_data->smash));                            // copy var
-                        memcpy(&ft_data->hurtstatus, &fighter_data->hurtstatus, sizeof(fighter_data->hurtstatus));             // copy var
+                        memcpy(&ft_data->hurt, &fighter_data->hurt, sizeof(fighter_data->hurt));                               // copy var
                         memcpy(&ft_data->shield, &fighter_data->shield, sizeof(fighter_data->shield));                         // copy hitbox
                         memcpy(&ft_data->shield_bubble, &fighter_data->shield_bubble, sizeof(fighter_data->shield_bubble));    // copy hitbox
                         memcpy(&ft_data->reflect_bubble, &fighter_data->reflect_bubble, sizeof(fighter_data->reflect_bubble)); // copy hitbox
@@ -1710,13 +1577,14 @@ int Savestate_Save(Savestate *savestate)
                         memcpy(&ft_data->absorb_hit, &fighter_data->absorb_hit, sizeof(fighter_data->absorb_hit));             // copy hitbox
 
                         // copy dmg
-                        memcpy(&ft_data->dmg, &fighter_data->dmg, sizeof(fighter_data->dmg));
-                        ft_data->dmg.source = GOBJToID(ft_data->dmg.source);
+                        // latest MexTK and savestate have different sizes for dmg struct, so we use savestates's size
+                        memcpy(&ft_data->dmg, &fighter_data->dmg, sizeof(ft_data->dmg));
+                        ft_data->dmg.hit_log.source = GOBJToID(ft_data->dmg.hit_log.source);
 
                         // copy grab
                         memcpy(&ft_data->grab, &fighter_data->grab, sizeof(fighter_data->grab));
-                        ft_data->grab.grab_attacker = GOBJToID(ft_data->grab.grab_attacker);
-                        ft_data->grab.grab_victim = GOBJToID(ft_data->grab.grab_victim);
+                        ft_data->grab.attacker = GOBJToID(ft_data->grab.attacker);
+                        ft_data->grab.victim = GOBJToID(ft_data->grab.victim);
 
                         // copy callbacks
                         memcpy(&ft_data->cb, &fighter_data->cb, sizeof(fighter_data->cb)); // copy hitbox
@@ -1727,7 +1595,7 @@ int Savestate_Save(Savestate *savestate)
                             ft_data->hitbox[k].bone = BoneToID(fighter_data, ft_data->hitbox[k].bone);
                             for (int l = 0; l < (sizeof(fighter_data->hitbox->victims) / sizeof(HitVictim)); l++) // pointers to hitbox victims
                             {
-                                ft_data->hitbox[k].victims[l].victim_data = FtDataToID(ft_data->hitbox[k].victims[l].victim_data);
+                                ft_data->hitbox[k].victims[l].data = FtDataToID(ft_data->hitbox[k].victims[l].data);
                             }
                         }
                         for (int k = 0; k < (sizeof(fighter_data->throw_hitbox) / sizeof(ftHit)); k++)
@@ -1735,15 +1603,15 @@ int Savestate_Save(Savestate *savestate)
                             ft_data->throw_hitbox[k].bone = BoneToID(fighter_data, ft_data->throw_hitbox[k].bone);
                             for (int l = 0; l < (sizeof(fighter_data->throw_hitbox->victims) / sizeof(HitVictim)); l++) // pointers to hitbox victims
                             {
-                                ft_data->throw_hitbox[k].victims[l].victim_data = FtDataToID(ft_data->throw_hitbox[k].victims[l].victim_data);
+                                ft_data->throw_hitbox[k].victims[l].data = FtDataToID(ft_data->throw_hitbox[k].victims[l].data);
                             }
                         }
 
-                        ft_data->unk_hitbox.bone = BoneToID(fighter_data, ft_data->unk_hitbox.bone);
-                        for (int k = 0; k < (sizeof(fighter_data->unk_hitbox.victims) / sizeof(HitVictim)); k++) // pointers to hitbox victims
+                        ft_data->thrown_hitbox.bone = BoneToID(fighter_data, ft_data->thrown_hitbox.bone);
+                        for (int k = 0; k < (sizeof(fighter_data->thrown_hitbox.victims) / sizeof(HitVictim)); k++) // pointers to hitbox victims
                         {
 
-                            ft_data->unk_hitbox.victims[k].victim_data = FtDataToID(ft_data->unk_hitbox.victims[k].victim_data);
+                            ft_data->thrown_hitbox.victims[k].data = FtDataToID(ft_data->thrown_hitbox.victims[k].data);
                         }
 
                         // copy XRotN rotation
@@ -1822,18 +1690,18 @@ int Savestate_Load(Savestate *savestate)
         if ((queue[0].fighter != 0) && (savestate->ft_state[i].data[0].is_exist == 1))
         {
 
-            FtState *ft_state = &savestate->ft_state[i];
+            FtSaveState *ft_state = &savestate->ft_state[i];
 
             isLoaded = 1;
 
             // restore playerblock
             Playerblock *playerblock = Fighter_GetPlayerblock(queue[0].fighter_data->ply);
             GOBJ *fighter_gobj[2];
-            fighter_gobj[0] = playerblock->fighterData;
-            fighter_gobj[1] = playerblock->fighterDataSub;
-            memcpy(playerblock, &ft_state->player_block, sizeof(Playerblock));
-            playerblock->fighterData = fighter_gobj[0];
-            playerblock->fighterDataSub = fighter_gobj[1];
+            fighter_gobj[0] = playerblock->gobj[0];
+            fighter_gobj[1] = playerblock->gobj[1];
+            memcpy(playerblock, &ft_state->player_block, sizeof(ft_state->player_block));
+            playerblock->gobj[0] = fighter_gobj[0];
+            playerblock->gobj[1] = fighter_gobj[1];
 
             // restore stale moves
             int *stale_queue = Fighter_GetStaleMoveTable(queue[0].fighter_data->ply);
@@ -1849,17 +1717,17 @@ int Savestate_Load(Savestate *savestate)
                 {
 
                     // get state
-                    FtStateData *ft_data = &ft_state->data[j];
+                    FtSaveStateData *ft_data = &ft_state->data[j];
                     FighterData *fighter_data = queue[j].fighter_data;
 
                     // sleep
                     Fighter_EnterSleep(fighter, 0);
 
-                    fighter_data->state = ft_data->state;
+                    fighter_data->state_id = ft_data->state_id;
                     fighter_data->facing_direction = ft_data->facing_direction;
-                    fighter_data->stateFrame = ft_data->stateFrame;
-                    fighter_data->stateSpeed = ft_data->stateSpeed;
-                    fighter_data->stateBlend = ft_data->stateBlend;
+                    fighter_data->state.frame = ft_data->state_frame;
+                    fighter_data->state.rate = ft_data->state_rate;
+                    fighter_data->state.blend = ft_data->state_blend;
 
                     // restore phys struct
                     memcpy(&fighter_data->phys, &ft_data->phys, sizeof(fighter_data->phys)); // copy physics
@@ -1891,12 +1759,12 @@ int Savestate_Load(Savestate *savestate)
                     // restore hitboxes
                     memcpy(&fighter_data->hitbox, &ft_data->hitbox, sizeof(fighter_data->hitbox));                   // copy hitbox
                     memcpy(&fighter_data->throw_hitbox, &ft_data->throw_hitbox, sizeof(fighter_data->throw_hitbox)); // copy hitbox
-                    memcpy(&fighter_data->unk_hitbox, &ft_data->unk_hitbox, sizeof(fighter_data->unk_hitbox));       // copy hitbox
+                    memcpy(&fighter_data->thrown_hitbox, &ft_data->thrown_hitbox, sizeof(fighter_data->thrown_hitbox));       // copy hitbox
 
                     // copy grab
                     memcpy(&fighter_data->grab, &ft_data->grab, sizeof(fighter_data->grab));
-                    fighter_data->grab.grab_attacker = IDToGOBJ(fighter_data->grab.grab_attacker);
-                    fighter_data->grab.grab_victim = IDToGOBJ(fighter_data->grab.grab_victim);
+                    fighter_data->grab.attacker = IDToGOBJ(fighter_data->grab.attacker);
+                    fighter_data->grab.victim = IDToGOBJ(fighter_data->grab.victim);
 
                     // convert pointers
 
@@ -1905,7 +1773,7 @@ int Savestate_Load(Savestate *savestate)
                         fighter_data->hitbox[k].bone = IDToBone(fighter_data, ft_data->hitbox[k].bone);
                         for (int l = 0; l < (sizeof(fighter_data->hitbox->victims) / sizeof(HitVictim)); l++) // pointers to hitbox victims
                         {
-                            fighter_data->hitbox[k].victims[l].victim_data = IDToFtData(ft_data->hitbox[k].victims[l].victim_data);
+                            fighter_data->hitbox[k].victims[l].data = IDToFtData(ft_data->hitbox[k].victims[l].data);
                         }
                     }
                     for (int k = 0; k < (sizeof(fighter_data->throw_hitbox) / sizeof(ftHit)); k++)
@@ -1913,13 +1781,13 @@ int Savestate_Load(Savestate *savestate)
                         fighter_data->throw_hitbox[k].bone = IDToBone(fighter_data, ft_data->throw_hitbox[k].bone);
                         for (int l = 0; l < (sizeof(fighter_data->throw_hitbox->victims) / sizeof(HitVictim)); l++) // pointers to hitbox victims
                         {
-                            fighter_data->throw_hitbox[k].victims[l].victim_data = IDToFtData(ft_data->throw_hitbox[k].victims[l].victim_data);
+                            fighter_data->throw_hitbox[k].victims[l].data = IDToFtData(ft_data->throw_hitbox[k].victims[l].data);
                         }
                     }
-                    fighter_data->unk_hitbox.bone = IDToBone(fighter_data, ft_data->unk_hitbox.bone);
-                    for (int k = 0; k < (sizeof(fighter_data->unk_hitbox.victims) / sizeof(HitVictim)); k++) // pointers to hitbox victims
+                    fighter_data->thrown_hitbox.bone = IDToBone(fighter_data, ft_data->thrown_hitbox.bone);
+                    for (int k = 0; k < (sizeof(fighter_data->thrown_hitbox.victims) / sizeof(HitVictim)); k++) // pointers to hitbox victims
                     {
-                        fighter_data->unk_hitbox.victims[k].victim_data = IDToFtData(ft_data->unk_hitbox.victims[k].victim_data);
+                        fighter_data->thrown_hitbox.victims[k].data = IDToFtData(ft_data->thrown_hitbox.victims[k].data);
                     }
 
                     // restore fighter variables
@@ -1931,11 +1799,11 @@ int Savestate_Load(Savestate *savestate)
 
                     // enter backed up state
                     GOBJ *anim_source = 0;
-                    if (fighter_data->flags.is_thrown == 1)
-                        anim_source = fighter_data->grab.grab_attacker;
+                    if (fighter_data->flags.is_robj_child == 1)
+                        anim_source = fighter_data->grab.attacker;
                     Fighter_SetAllHurtboxesNotUpdated(fighter);
-                    ActionStateChange(ft_data->stateFrame, ft_data->stateSpeed, -1, fighter, ft_data->state, 0, anim_source);
-                    fighter_data->stateBlend = 0;
+                    ActionStateChange(ft_data->state_rate, ft_data->state_rate, -1, fighter, ft_data->state_id, 0, anim_source);
+                    fighter_data->state.blend = 0;
 
                     // copy physics again to work around some bugs. Notably, this fixes savestates during dash.
                     memcpy(&fighter_data->phys, &ft_data->phys, sizeof(fighter_data->phys));
@@ -1954,8 +1822,8 @@ int Savestate_Load(Savestate *savestate)
                     memcpy(&fighter_data->ftcmd_var, &ft_data->ftcmd_var, sizeof(fighter_data->ftcmd_var)); // copy hitbox
 
                     // restore damage variables
-                    memcpy(&fighter_data->dmg, &ft_data->dmg, sizeof(fighter_data->dmg)); // copy hitbox
-                    fighter_data->dmg.source = IDToGOBJ(fighter_data->dmg.source);
+                    memcpy(&fighter_data->dmg, &ft_data->dmg, sizeof(ft_data->dmg)); // copy hitbox
+                    fighter_data->dmg.hit_log.source = IDToGOBJ(fighter_data->dmg.hit_log.source);
 
                     // restore jump variables
                     memcpy(&fighter_data->jump, &ft_data->jump, sizeof(fighter_data->jump)); // copy hitbox
@@ -1963,8 +1831,8 @@ int Savestate_Load(Savestate *savestate)
                     // restore flags
                     memcpy(&fighter_data->flags, &ft_data->flags, sizeof(fighter_data->flags)); // copy hitbox
 
-                    // restore hurtstatus variables
-                    memcpy(&fighter_data->hurtstatus, &ft_data->hurtstatus, sizeof(fighter_data->hurtstatus)); // copy hitbox
+                    // restore hurt variables
+                    memcpy(&fighter_data->hurt, &ft_data->hurt, sizeof(fighter_data->hurt)); // copy hurtbox
 
                     // update jobj position
                     JOBJ *fighter_jobj = fighter->hsd_object;
@@ -1976,7 +1844,7 @@ int Savestate_Load(Savestate *savestate)
                     Fighter_UpdateHurtboxes(fighter_data);
 
                     // remove color overlay
-                    Fighter_ColorRemove(fighter_data, 9);
+                    Fighter_ColAnim_Remove(fighter_data, 9);
 
                     // restore color
                     memcpy(fighter_data->color, ft_data->color, sizeof(fighter_data->color));
@@ -2002,11 +1870,11 @@ int Savestate_Load(Savestate *savestate)
                     fighter_data->coll_data.coll_test = *stc_colltest;
 
                     // restore camera box
-                    CameraBox *thiscam = fighter_data->cameraBox;
-                    CameraBox *savedcam = &ft_data->cameraBox;
+                    CmSubject *thiscam = fighter_data->camera_subject;
+                    CmSubject *savedcam = &ft_data->camera_subject;
                     void *alloc = thiscam->alloc;
-                    CameraBox *next = thiscam->next;
-                    memcpy(thiscam, savedcam, sizeof(CameraBox)); // copy camerabox
+                    CmSubject *next = thiscam->next;
+                    memcpy(thiscam, savedcam, sizeof(CmSubject)); // copy camerabox
                     thiscam->alloc = alloc;
                     thiscam->next = next;
 
@@ -2014,7 +1882,7 @@ int Savestate_Load(Savestate *savestate)
                     Fighter_UpdateIK(fighter);
 
                     // if shield is up, update shield
-                    if ((fighter_data->state >= ASID_GUARDON) && (fighter_data->state <= ASID_GUARDREFLECT))
+                    if ((fighter_data->state_id >= ASID_GUARDON) && (fighter_data->state_id <= ASID_GUARDREFLECT))
                     {
                         fighter_data->shield_bubble.bone = 0;
                         fighter_data->reflect_bubble.bone = 0;
@@ -2043,8 +1911,7 @@ int Savestate_Load(Savestate *savestate)
 #endif
 
                     // remove all items belonging to this fighter
-                    GOBJList *gobj_list = *stc_gobj_list;
-                    GOBJ *item = gobj_list->item;
+                    GOBJ *item = (*stc_gobj_lookup)[MATCHPLINK_ITEM];
                     while (item != 0)
                     {
                         // get next
@@ -2052,7 +1919,7 @@ int Savestate_Load(Savestate *savestate)
 
                         // check to delete
                         ItemData *item_data = item->userdata;
-                        if (fighter == item_data->fighter)
+                        if (fighter == item_data->fighter_gobj)
                         {
                             // destroy it
                             Item_Destroy(item);
@@ -2064,7 +1931,7 @@ int Savestate_Load(Savestate *savestate)
             }
 
             // check to recreate HUD
-            MatchHUD *hud = &stc_matchhud[i];
+            MatchHUDElement *hud = &stc_matchhud->element_data[i];
 
             // check if fighter is perm dead
             if (Match_CheckIfStock() == 1)
@@ -2114,19 +1981,19 @@ int Savestate_Load(Savestate *savestate)
         // remove all particles
         for (int i = 0; i < PTCL_LINKMAX; i++)
         {
-            Particle2 **ptcls = &stc_ptcl[i];
-            Particle2 *ptcl = *ptcls;
+            Particle **ptcls = &stc_ptcl[i];
+            Particle *ptcl = *ptcls;
             while (ptcl != 0)
             {
 
-                Particle2 *ptcl_next = ptcl->next;
+                Particle *ptcl_next = ptcl->next;
 
                 // begin destroying this particle
 
                 // subtract some value, 8039c9f0
-                if (ptcl->x88 != 0)
+                if (ptcl->gen != 0)
                 {
-                    int *arr = ptcl->x88;
+                    int *arr = ptcl->gen;
                     arr[0x50 / 4]--;
                 }
                 // remove from generator? 8039ca14
@@ -2178,8 +2045,7 @@ int Savestate_Load(Savestate *savestate)
 */
 
         // remove all camera shake gobjs (p_link 18, entity_class 3)
-        GOBJList *gobj_list = *stc_gobj_list;
-        GOBJ *gobj = gobj_list->match_cam;
+        GOBJ *gobj = (*stc_gobj_lookup)[MATCHPLINK_MATCHCAM];
         while (gobj != 0)
         {
 
@@ -2201,7 +2067,7 @@ int Savestate_Load(Savestate *savestate)
 #if TM_DEBUG > 0
     int load_post_tick = OSGetTick();
     int load_time = OSTicksToMilliseconds(load_post_tick - load_pre_tick);
-    sizeof(FtState);
+    sizeof(FtSaveState);
 #endif
 
     return isLoaded;
@@ -2358,8 +2224,8 @@ void TM_CreateWatermark()
     text->align = 2;
     text->kerning = 1;
     // scale canvas
-    text->scale.X = 0.4;
-    text->scale.Y = 0.4;
+    text->viewport_scale.X = 0.4;
+    text->viewport_scale.Y = 0.4;
     text->trans.X = 615;
     text->trans.Y = 446;
 
@@ -2389,7 +2255,7 @@ void Hazards_Disable()
 
     switch (stage_internal)
     {
-    case (GR_STORY):
+    case (GRKIND_STORY):
     {
         // remove shyguy map gobj proc
         GOBJ *shyguy_gobj = Stage_GetMapGObj(3);
@@ -2403,7 +2269,7 @@ void Hazards_Disable()
 
         break;
     }
-    case (GR_PSTAD):
+    case (GRKIND_PSTAD):
     {
         // remove map gobj proc
         GOBJ *map_gobj = Stage_GetMapGObj(2);
@@ -2413,7 +2279,7 @@ void Hazards_Disable()
 
         break;
     }
-    case (GR_OLDPU):
+    case (GRKIND_OLDPU):
     {
         // remove map gobj proc
         GOBJ *map_gobj = Stage_GetMapGObj(7);
@@ -2428,11 +2294,11 @@ void Hazards_Disable()
 
         break;
     }
-    case (GR_FD):
+    case (GRKIND_FD):
     {
         // set bg skip flag
         GOBJ *map_gobj = Stage_GetMapGObj(3);
-        map_gobjData *map_data = map_gobj->userdata;
+        MapData *map_data = map_gobj->userdata;
         map_data->xc4 |= 0x40;
 
         // remove on-go function that changes this flag
@@ -2524,8 +2390,8 @@ GOBJ *Message_Display(int msg_kind, int queue_num, int msg_color, char *format, 
     // background scale
     msg_jobj->scale = scale;
     // text scale
-    msg_text->scale.X = (scale.X * 0.01) * MSGTEXT_BASESCALE;
-    msg_text->scale.Y = (scale.Y * 0.01) * MSGTEXT_BASESCALE;
+    msg_text->viewport_scale.X = (scale.X * 0.01) * MSGTEXT_BASESCALE;
+    msg_text->viewport_scale.Y = (scale.Y * 0.01) * MSGTEXT_BASESCALE;
     msg_text->aspect.X = MSGTEXT_BASEWIDTH;
 
     JOBJ_SetMtxDirtySub(msg_jobj);
@@ -2744,7 +2610,7 @@ void Message_Manager(GOBJ *mngr_gobj)
                     // BG scale
                     scale->Y = BezierBlend(t);
                     // text scale
-                    this_msg_text->scale.Y = (scale->Y * 0.01) * MSGTEXT_BASESCALE;
+                    this_msg_text->viewport_scale.Y = (scale->Y * 0.01) * MSGTEXT_BASESCALE;
                     // text position
                     this_msg_text->trans.Y = (pos->Y * -1) + (MSGTEXT_BASEY * (scale->Y / 4.0));
 
@@ -3010,8 +2876,8 @@ int Tip_Display(int lifetime, char *fmt, ...)
     // background scale
     tip_jobj->scale = scale;
     // text scale
-    tip_text->scale.X = (scale.X * 0.01) * TIP_TXTSIZEX;
-    tip_text->scale.Y = (scale.Y * 0.01) * TIP_TXTSIZEY;
+    tip_text->viewport_scale.X = (scale.X * 0.01) * TIP_TXTSIZEX;
+    tip_text->viewport_scale.Y = (scale.Y * 0.01) * TIP_TXTSIZEY;
     tip_text->aspect.X = (TIP_TXTASPECT / TIP_TXTSIZEX);
 
     // apply enter anim
@@ -3086,7 +2952,7 @@ void Tip_Destroy()
         JOBJ_RemoveAnimAll(tip_root);
         JOBJ_AddAnimAll(tip_root, stc_event_vars.menu_assets->tip_jointanim[1], 0, 0);
         JOBJ_ReqAnimAll(tip_root, 0);
-        JOBJ_RunAOBJCallback(tip_root, 6, 0xfb7f, AOBJ_SetRate, 1, (float)2);
+        JOBJ_ForEachAnim(tip_root, 6, 0xfb7f, AOBJ_SetRate, 1, (float)2);
 
         stc_tipmgr.state = 2; // enter wait
     }
@@ -3105,7 +2971,7 @@ GOBJ *EventMenu_Init(EventDesc *event_desc, EventMenu *start_menu)
         return 0;
 
     // Create a cobj for the event menu
-    COBJDesc ***dmgScnMdls = File_GetSymbol(ACCESS_PTR(0x804d6d5c), 0x803f94d0);
+    COBJDesc ***dmgScnMdls = Archive_GetPublicAddress(*stc_ifall_archive, 0x803f94d0);
     COBJDesc *cam_desc = dmgScnMdls[1][0];
     COBJ *cam_cobj = COBJ_LoadDesc(cam_desc);
     GOBJ *cam_gobj = GObj_Create(19, 20, 0);
@@ -3934,8 +3800,8 @@ void EventMenu_CreateText(GOBJ *gobj, EventMenu *menu)
     text->kerning = 1;
     text->use_aspect = 1;
     // scale canvas
-    text->scale.X = MENU_CANVASSCALE;
-    text->scale.Y = MENU_CANVASSCALE;
+    text->viewport_scale.X = MENU_CANVASSCALE;
+    text->viewport_scale.Y = MENU_CANVASSCALE;
     text->trans.Z = MENU_TEXTZ;
     text->aspect.X = MENU_TITLEASPECT;
 
@@ -3965,8 +3831,8 @@ void EventMenu_CreateText(GOBJ *gobj, EventMenu *menu)
     text->kerning = 1;
     text->use_aspect = 1;
     // scale canvas
-    text->scale.X = MENU_CANVASSCALE;
-    text->scale.Y = MENU_CANVASSCALE;
+    text->viewport_scale.X = MENU_CANVASSCALE;
+    text->viewport_scale.Y = MENU_CANVASSCALE;
     text->trans.Z = MENU_TEXTZ;
     text->aspect.X = MENU_NAMEASPECT;
 
@@ -3995,8 +3861,8 @@ void EventMenu_CreateText(GOBJ *gobj, EventMenu *menu)
     text->kerning = 1;
     text->use_aspect = 1;
     // scale canvas
-    text->scale.X = MENU_CANVASSCALE;
-    text->scale.Y = MENU_CANVASSCALE;
+    text->viewport_scale.X = MENU_CANVASSCALE;
+    text->viewport_scale.Y = MENU_CANVASSCALE;
     text->trans.Z = MENU_TEXTZ;
     text->aspect.X = MENU_VALASPECT;
 
@@ -4049,8 +3915,8 @@ void EventMenu_UpdateText(GOBJ *gobj, EventMenu *menu)
     text->use_aspect = 1;
 
     // scale canvas
-    text->scale.X = 0.01 * DESC_TXTSIZEX;
-    text->scale.Y = 0.01 * DESC_TXTSIZEY;
+    text->viewport_scale.X = 0.01 * DESC_TXTSIZEX;
+    text->viewport_scale.Y = 0.01 * DESC_TXTSIZEY;
     text->trans.X = MENU_DESCXPOS;
     text->trans.Y = MENU_DESCYPOS;
     text->trans.Z = MENU_TEXTZ;
@@ -4376,8 +4242,8 @@ void EventMenu_CreatePopupText(GOBJ *gobj, EventMenu *menu)
     text->align = 1;
     text->kerning = 1;
     // scale canvas
-    text->scale.X = POPUP_CANVASSCALE;
-    text->scale.Y = POPUP_CANVASSCALE;
+    text->viewport_scale.X = POPUP_CANVASSCALE;
+    text->viewport_scale.Y = POPUP_CANVASSCALE;
     text->trans.Z = POPUP_TEXTZ;
 
     // determine base Y value

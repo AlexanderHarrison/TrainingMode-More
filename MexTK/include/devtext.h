@@ -2,16 +2,18 @@
 #define MEX_H_DEVTEXT
 
 #include "structs.h"
-#include "color.h"
+#include "gx.h"
 
 /*** Structs ***/
 
 struct DevText
 {
     int x0;                   // 0x0
-    int x4;                   // 0x4
-    int x8;                   // 0x8
-    int xc;                   // 0xc
+    u8 width;                 // 0x4
+    u8 height;                // 0x5
+    u8 cursor_x;              // 0x6
+    u8 cursor_y;              // 0x7
+    Vec2 scale;               // 0x8
     GXColor bg_color;         // 0x10
     int x14;                  // 0x14
     int x18;                  // 0x18
@@ -23,7 +25,7 @@ struct DevText
     char show_background : 1; // 0x26
     char show_cursor : 1;     // 0x26
     char x27;                 // 0x27
-    int x28;                  // 0x28
+    u8 *text_data;            // 0x28
     int x2c;                  // 0x2c
     DevText *next;            // 0x30
     int x34;                  // 0x34
@@ -43,14 +45,20 @@ struct DevText
 
 DevText *DevelopText_CreateDataTable(int unk1, int x, int y, int width, int height, void *alloc);
 void DevelopText_Activate(void *unk, DevText *text);
+void DevelopText_Deactivate(void *unk);
 void DevelopText_AddString(DevText *text, ...);
 void DevelopText_EraseAllText(DevText *text);
+void DevelopText_ResetCursorXY(DevText *text, int x, int y);
+void DevelopText_StoreTextColor(DevText *text, u8 *RGBA);
 void DevelopText_StoreBGColor(DevText *text, u8 *RGBA);
+void DevelopText_ShowText(DevText *text);
 void DevelopText_HideText(DevText *text);
+void DevelopText_ShowBG(DevText *text);
 void DevelopText_HideBG(DevText *text);
 void DevelopText_StoreTextScale(DevText *text, float x, float y);
 void Develop_DrawSphere(float size, Vec3 *pos1, Vec2 *pos2, GXColor *diffuse, GXColor *ambient);
+void Develop_UpdateMatchHotkeys();
 
-int *stc_dblevel = R13 + (-0x6C98);
+static int *stc_dblevel = R13 + (-0x6C98);
 
 #endif

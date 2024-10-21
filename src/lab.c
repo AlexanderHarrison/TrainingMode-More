@@ -167,17 +167,16 @@ void Lab_ChangeCPUIntang(GOBJ *menu_gobj, int value)
     FighterData *fighter_data = fighter->userdata;
 
     if (value == 0)
-        Fighter_ColorRemove(fighter_data, INTANG_COLANIM);
+        Fighter_ColAnim_Remove(fighter_data, INTANG_COLANIM);
     else
-        Fighter_ApplyOverlay(fighter_data, INTANG_COLANIM, 0);
+        Fighter_ColAnim_Apply(fighter_data, INTANG_COLANIM, 0);
 
     return;
 }
 void Lab_ChangeModelDisplay(GOBJ *menu_gobj, int value)
 {
     // loop through all fighters
-    GOBJ **GOBJList = R13_PTR(-0x3E74);
-    GOBJ *this_fighter = GOBJList[8];
+    GOBJ *this_fighter = (*stc_gobj_lookup)[MATCHPLINK_FIGHTER];
     while (this_fighter != 0)
     {
         // get data
@@ -198,8 +197,7 @@ void Lab_ChangeModelDisplay(GOBJ *menu_gobj, int value)
 void Lab_ChangeHitDisplay(GOBJ *menu_gobj, int value)
 {
     // loop through all fighters
-    GOBJ **GOBJList = R13_PTR(-0x3E74);
-    GOBJ *this_fighter = GOBJList[8];
+    GOBJ *this_fighter = (*stc_gobj_lookup)[MATCHPLINK_FIGHTER];
     while (this_fighter != 0)
     {
         // get data
@@ -356,8 +354,7 @@ void Lab_Exit(int value)
 
     // Unfreeze
     LabOptions_General[OPTGEN_FRAME].option_val = 0;
-    //HSD_Update *update = HSD_UPDATE;
-    //update->pause_develop = 0;
+    //HSD_Update *update = stc_hsd_update;
     return;
 }
 
@@ -508,14 +505,14 @@ void InfoDisplay_Think(GOBJ *gobj)
                     }
                     case (INFDISP_STATE):
                     {
-                        if (fighter_data->anim_id != -1)
+                        if (fighter_data->action_id != -1)
                         {
-                            SubactionHeader *subHeader = Fighter_GetSubactionHeader(fighter_data, fighter_data->anim_id);
+                            FtAction *action = Fighter_GetFtAction(fighter_data, fighter_data->action_id);
                             // extract state name from symbol
                             int pos = 0;
                             int posStart;
                             int nameSize = 0;
-                            char *symbol = subHeader->symbol;
+                            char *symbol = action->anim_symbol;
                             for (int i = 0; pos < 50; pos++)
                             {
                                 // search for "N_"
@@ -551,7 +548,7 @@ void InfoDisplay_Think(GOBJ *gobj)
                     }
                     case (INFDISP_FRAME):
                     {
-                        float *animStruct = fighter_data->anim_curr_flags_ptr;
+                        Figatree *animStruct = fighter_data->figatree_curr;
                         int frameCurr = 0;
                         int frameTotal = 0;
 
@@ -559,9 +556,9 @@ void InfoDisplay_Think(GOBJ *gobj)
                         if (animStruct != 0)
                         {
                             // determine how many frames shield stun is
-                            float animFrameTotal = animStruct[2];
-                            float animFrameCurr = fighter_data->stateFrame;
-                            float animSpeed = fighter_data->stateSpeed;
+                            float animFrameTotal = animStruct->frame_num;
+                            float animFrameCurr = fighter_data->state.frame;
+                            float animSpeed = fighter_data->state.rate;
                             frameTotal = (animFrameTotal / animSpeed);
                             frameCurr = (animFrameCurr / animSpeed);
                         }
@@ -586,7 +583,7 @@ void InfoDisplay_Think(GOBJ *gobj)
                     }
                     case (INFDISP_ENGLSTICK):
                     {
-                        Text_SetText(text, i, "LStick:      (%+.4f , %+.4f)", fighter_data->input.lstick_x, fighter_data->input.lstick_y);
+                        Text_SetText(text, i, "LStick:      (%+.4f , %+.4f)", fighter_data->input.lstick.X, fighter_data->input.lstick.Y);
                         break;
                     }
                     case (INFDISP_SYSLSTICK):
@@ -597,7 +594,7 @@ void InfoDisplay_Think(GOBJ *gobj)
                     }
                     case (INFDISP_ENGCSTICK):
                     {
-                        Text_SetText(text, i, "CStick:     (%+.4f , %+.4f)", fighter_data->input.cstick_x, fighter_data->input.cstick_y);
+                        Text_SetText(text, i, "CStick:     (%+.4f , %+.4f)", fighter_data->input.cstick.X, fighter_data->input.cstick.Y);
                         break;
                     }
                     case (INFDISP_SYSCSTICK):
@@ -624,9 +621,9 @@ void InfoDisplay_Think(GOBJ *gobj)
                     }
                     case (INFDISP_INTANGREMAIN):
                     {
-                        int intang = fighter_data->hurtstatus.respawn_intang_left;
-                        if (fighter_data->hurtstatus.ledge_intang_left > fighter_data->hurtstatus.respawn_intang_left)
-                            intang = fighter_data->hurtstatus.ledge_intang_left;
+                        int intang = fighter_data->hurt.intang_frames.respawn;
+                        if (fighter_data->hurt.intang_frames.ledge > fighter_data->hurt.intang_frames.respawn)
+                            intang = fighter_data->hurt.intang_frames.ledge;
 
                         Text_SetText(text, i, "Intangibility Timer: %d", intang);
                         break;
@@ -641,7 +638,7 @@ void InfoDisplay_Think(GOBJ *gobj)
                         // get hitstun
                         float hitstun = 0;
                         if (fighter_data->flags.hitstun == 1)
-                            hitstun = AS_FLOAT(fighter_data->state_var.stateVar1);
+                            hitstun = AS_FLOAT(fighter_data->state_var.state_var1);
 
                         Text_SetText(text, i, "Hitstun: %.0f", hitstun);
                         break;
@@ -657,12 +654,12 @@ void InfoDisplay_Think(GOBJ *gobj)
                         int stunLeft = 0;
 
                         // check if taking shield stun
-                        if (fighter_data->state == ASID_GUARDSETOFF)
+                        if (fighter_data->state_id == ASID_GUARDSETOFF)
                         {
                             // determine how many frames shield stun is
                             float frameTotal = JOBJ_GetJointAnimFrameTotal(fighter->hsd_object);
-                            float frameCurr = fighter_data->stateFrame;
-                            float animSpeed = fighter_data->stateSpeed;
+                            float frameCurr = fighter_data->state.frame;
+                            float animSpeed = fighter_data->state.rate;
                             stunTotal = (frameTotal / animSpeed);
                             stunLeft = stunTotal - (frameCurr / animSpeed);
                             // 0 index
@@ -676,9 +673,9 @@ void InfoDisplay_Think(GOBJ *gobj)
                     case (INFDISP_GRIP):
                     {
                         float grip = 0;
-                        if (fighter_data->grab.grab_victim != 0)
+                        if (fighter_data->grab.victim != 0)
                         {
-                            GOBJ *victim = fighter_data->grab.grab_victim;
+                            GOBJ *victim = fighter_data->grab.victim;
                             FighterData *victim_data = victim->userdata;
                             grip = victim_data->grab.grab_timer;
                         }
@@ -688,7 +685,7 @@ void InfoDisplay_Think(GOBJ *gobj)
                     }
                     case (INFDISP_ECBLOCK):
                     {
-                        Text_SetText(text, i, "ECB Lock: %d", fighter_data->coll_data.ecb_lock);
+                        Text_SetText(text, i, "ECB Lock: %d", fighter_data->coll_data.u.ecb_bot_lock_frames);
                         break;
                     }
                     case (INFDISP_ECBBOT):
@@ -757,8 +754,8 @@ void InfoDisplay_Think(GOBJ *gobj)
             info_jobj->scale.X = scale;
             info_jobj->scale.Y = scale;
             // text scale
-            info_text->scale.X = ((scale / 4.0) * INFDISPTEXT_SCALE);
-            info_text->scale.Y = ((scale / 4.0) * INFDISPTEXT_SCALE);
+            info_text->viewport_scale.X = ((scale / 4.0) * INFDISPTEXT_SCALE);
+            info_text->viewport_scale.Y = ((scale / 4.0) * INFDISPTEXT_SCALE);
             /*
             // background position
             info_jobj->trans.X = pos->X;
@@ -809,13 +806,13 @@ float Fighter_GetOpponentDir(FighterData *from, FighterData *to)
 
 static int in_hitstun_anim(GOBJ *character) {
     FighterData *data = character->userdata;
-    int state = data->state;
+    int state = data->state_id;
     return ASID_DAMAGEHI1 <= state && state <= ASID_DAMAGEFLYROLL;
 }
 
 static int hitstun_ended(GOBJ *character) {
     FighterData *data = character->userdata;
-    float hitstun = *((float*)&data->state_var.stateVar1);
+    float hitstun = *((float*)&data->state_var.state_var1);
     return hitstun == 0.0;
 }
 
@@ -828,7 +825,7 @@ static int check_IASA(FighterData *data) {
 static int CheckOverlay(GOBJ *character, OverlayGroup overlay)
 {
     FighterData *data = character->userdata;
-    int state = data->state;
+    int state = data->state_id;
     int in_air = data->phys.air_state;
 
     switch (overlay)
@@ -838,7 +835,7 @@ static int CheckOverlay(GOBJ *character, OverlayGroup overlay)
             if (in_hitstun_anim(character) && hitstun_ended(character))
                 return true;
 
-            if (state == ASID_LANDING && data->stateFrame >= data->attr.normal_landing_lag)
+            if (state == ASID_LANDING && data->state.frame >= data->attr.normal_landing_lag)
                 return true;
 
             if (check_IASA(data)) return true;
@@ -896,7 +893,7 @@ static int CheckOverlay(GOBJ *character, OverlayGroup overlay)
             if (state < ASID_ATTACKAIRN || ASID_ATTACKAIRLW < state)
                 return false;
 
-            return data->ftcmd_var.subactionFlag0 == 0;
+            return data->ftcmd_var.flag0 == 0;
         }
 
         case (OVERLAY_CROUCH):
@@ -930,7 +927,7 @@ static int CheckOverlay(GOBJ *character, OverlayGroup overlay)
 int CPUAction_CheckASID(GOBJ *cpu, int asid_kind)
 {
     FighterData *cpu_data = cpu->userdata;
-    int cpu_state = cpu_data->state;
+    int cpu_state = cpu_data->state_id;
     int in_air = cpu_data->phys.air_state;
 
     switch (asid_kind)
@@ -977,7 +974,7 @@ int CPUAction_CheckASID(GOBJ *cpu, int asid_kind)
             if (in_hitstun_anim(cpu) && hitstun_ended(cpu))
                 return true;
 
-            if (cpu_state == ASID_LANDING && cpu_data->stateFrame >= cpu_data->attr.normal_landing_lag)
+            if (cpu_state == ASID_LANDING && cpu_data->state.frame >= cpu_data->attr.normal_landing_lag)
                 return true;
 
             return cpu_state == ASID_WAIT
@@ -1000,7 +997,7 @@ int CPU_IsThrown(GOBJ *cpu, GOBJ *hmn) {
     FighterData *hmn_data = hmn->userdata;
 
     int is_thrown = 0;
-    int cpu_state = cpu_data->state;
+    int cpu_state = cpu_data->state_id;
     int hmn_kind = hmn_data->kind;
 
     // hardcode DK cargo throw
@@ -1022,7 +1019,7 @@ int CPU_IsGrabbed(GOBJ *cpu, GOBJ *hmn)
     FighterData *cpu_data = cpu->userdata;
     FighterData *hmn_data = hmn->userdata;
 
-    int cpu_state = cpu_data->state;
+    int cpu_state = cpu_data->state_id;
     int hmn_kind = hmn_data->kind;
 
     // hardcode DK cargo throw
@@ -1054,8 +1051,8 @@ int LCancel_CPUPerformAction(GOBJ *cpu, int action_id, GOBJ *hmn)
     // get CPU action
     int action_done = 0;
     CPUAction *action_list = Lab_CPUActions[action_id];
-    int cpu_state = cpu_data->state;
-    s16 cpu_frame = cpu_data->stateFrame;
+    int cpu_state = cpu_data->state_id;
+    s16 cpu_frame = cpu_data->state.frame;
     if (cpu_frame == -1)
         cpu_frame = 0;
 
@@ -1163,8 +1160,8 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
     LCancelData *eventData = event->userdata;
     FighterData *hmn_data = hmn->userdata;
     FighterData *cpu_data = cpu->userdata;
-    GOBJ **gobjlist = R13_PTR(GOBJLIST);
-    int cpu_state = cpu_data->state;
+    GOBJ **gobj_lookup = (*stc_gobj_lookup);
+    int cpu_state = cpu_data->state_id;
     eventData->cpu_countering = false;
 
     // noact
@@ -1202,9 +1199,9 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
         Fighter_ZeroCPUInputs(cpu_data);
 
         // check if new shield hit
-        if (eventData->cpu_lastshieldstun != cpu_data->moveID)
+        if (eventData->cpu_lastshieldstun != cpu_data->atk_instance)
         {
-            eventData->cpu_lastshieldstun = cpu_data->moveID;
+            eventData->cpu_lastshieldstun = cpu_data->atk_instance;
             eventData->cpu_hitshieldnum++;
         }
 
@@ -1276,8 +1273,8 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
                 }
                 // overwrite the last-frame stick inputs, so 
                 // rolls/jumps/spotdodges arent triggered by the shield tilt input.
-                cpu_data->input.lstick_x = stickX;
-                cpu_data->input.lstick_y = stickY;
+                cpu_data->input.lstick.X = stickX;
+                cpu_data->input.lstick.Y = stickY;
                 cpu_data->cpu.lstickX = stickX;
                 cpu_data->cpu.lstickY = stickY;
             }
@@ -1325,8 +1322,8 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
             {
                 // remove last frame inputs
                 cpu_data->input.held = 0;
-                cpu_data->input.lstick_x = 0;
-                cpu_data->input.lstick_y = 0;
+                cpu_data->input.lstick.X = 0;
+                cpu_data->input.lstick.Y = 0;
 
                 // input
                 cpu_data->cpu.held = PAD_BUTTON_A;
@@ -1340,8 +1337,8 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
             {
                 // remove last frame inputs
                 cpu_data->input.held = 0;
-                cpu_data->input.lstick_x = 0;
-                cpu_data->input.lstick_y = 0;
+                cpu_data->input.lstick.X = 0;
+                cpu_data->input.lstick.Y = 0;
 
                 // input
                 cpu_data->cpu.held = PAD_BUTTON_A;
@@ -1353,8 +1350,8 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
         {
             // remove last frame inputs
             cpu_data->input.held = 0;
-            cpu_data->input.lstick_x = 0;
-            cpu_data->input.lstick_y = 0;
+            cpu_data->input.lstick.X = 0;
+            cpu_data->input.lstick.Y = 0;
 
             // input
             cpu_data->cpu.held = PAD_BUTTON_A;
@@ -1387,11 +1384,11 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
         }
 
         // update move instance
-        if (eventData->cpu_lasthit != cpu_data->dmg.instancehitby)
+        if (eventData->cpu_lasthit != cpu_data->dmg.atk_instance_hurtby)
         {
             eventData->cpu_sincehit = 0;
             eventData->cpu_hitnum++;
-            eventData->cpu_lasthit = cpu_data->dmg.instancehitby;
+            eventData->cpu_lasthit = cpu_data->dmg.atk_instance_hurtby;
             //OSReport("hit count %d/%d", eventData->cpu_hitnum, LabOptions_CPU[OPTCPU_CTRHITS].option_val);
 
             // decide random SDI direction for grounded cpu
@@ -1518,7 +1515,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
         }
 
         // if in shield, no need to TDI
-        if ((cpu_data->state >= ASID_GUARDON) && (cpu_data->state <= ASID_GUARDREFLECT))
+        if ((cpu_data->state_id >= ASID_GUARDON) && (cpu_data->state_id <= ASID_GUARDREFLECT))
         {
             break;
         }
@@ -1528,7 +1525,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
         if (is_thrown == 1)
         {
             // if being thrown, get knockback info from attacker
-            FighterData *attacker_data = cpu_data->grab.grab_attacker->userdata;
+            FighterData *attacker_data = cpu_data->grab.attacker->userdata;
             kb_angle = ((float)attacker_data->throw_hitbox[0].angle * M_1DEGREE) * (attacker_data->facing_direction);
         }
         else
@@ -1736,9 +1733,9 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
         // this is kinda meh, maybe i can come up with something better later
         // spoof last input as current input as to not trigger SDI
         // also spoof input as held for more than the SDI window
-        cpu_data->input.lstick_x = ((float)cpu_data->cpu.lstickX * 0.0078125);
+        cpu_data->input.lstick.X = ((float)cpu_data->cpu.lstickX * 0.0078125);
         cpu_data->input.timer_lstick_tilt_x = 5;
-        cpu_data->input.lstick_y = ((float)cpu_data->cpu.lstickY * 0.0078125);
+        cpu_data->input.lstick.Y = ((float)cpu_data->cpu.lstickY * 0.0078125);
         cpu_data->input.timer_lstick_tilt_y = 5;
 
         break;
@@ -1747,7 +1744,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
     case (CPUSTATE_NONE):
     CPULOGIC_NONE:
     {
-        int state = cpu_data->state;
+        int state = cpu_data->state_id;
         if (ASID_DAMAGEFLYHI <= state && state <= ASID_DAMAGEFLYROLL || state == ASID_DAMAGEFALL)
             goto CPULOGIC_FORCE_TECH;
         else
@@ -1761,7 +1758,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
         if (cpu_data->flags.hitstun == 0)
         {
             // also reset stick timer (messes with airdodge wiggle)
-            cpu_data->input.lstick_x = 0;
+            cpu_data->input.lstick.X = 0;
             cpu_data->input.timer_lstick_tilt_x = 254;
             eventData->cpu_state = CPUSTATE_COUNTER;
             goto CPULOGIC_COUNTER;
@@ -1831,7 +1828,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
 
         // input tech
         cpu_data->input.timer_LR = sincePress;
-        cpu_data->input.sinceRapidLR = since2Press;
+        cpu_data->input.since_rapid_lr = since2Press;
         cpu_data->cpu.lstickX = stickX;
         cpu_data->input.timer_lstick_smash_x = sinceXSmash;
 
@@ -1843,7 +1840,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
     {
 
         // if im in downwait, perform getup logic
-        if ((cpu_data->state == ASID_DOWNWAITD) || (cpu_data->state == ASID_DOWNWAITU))
+        if ((cpu_data->state_id == ASID_DOWNWAITD) || (cpu_data->state_id == ASID_DOWNWAITU))
         {
             // perform getup behavior
             int getup = LabOptions_Tech[OPTTECH_GETUP].option_val;
@@ -1914,7 +1911,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
         }
 
         // if cpu is in any other down state, do nothing
-        else if ((cpu_data->state >= ASID_DOWNBOUNDU) && (cpu_data->state <= ASID_DOWNSPOTD))
+        else if ((cpu_data->state_id >= ASID_DOWNBOUNDU) && (cpu_data->state_id <= ASID_DOWNSPOTD))
         {
             break;
         }
@@ -2052,13 +2049,13 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
     // update cpu_hitshield
     if (eventData->cpu_hitshield == 0)
     {
-        GOBJ *fighter = gobjlist[8];
+        GOBJ *fighter = gobj_lookup[MATCHPLINK_FIGHTER];
         while (fighter != 0)
         {
             FighterData *fighter_data = fighter->userdata;
 
             // check if in guard off
-            if (fighter_data->state == ASID_GUARDSETOFF)
+            if (fighter_data->state_id == ASID_GUARDSETOFF)
             {
                 eventData->cpu_hitshield = 1;
                 break;
@@ -2075,7 +2072,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
         if (eventData->cpu_hitshield == 0)
         {
             // inf shield
-            GOBJ *fighter = gobjlist[8];
+            GOBJ *fighter = gobj_lookup[MATCHPLINK_FIGHTER];
             while (fighter != 0)
             {
                 FighterData *fighter_data = fighter->userdata;
@@ -2087,7 +2084,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
     else if (infShield == 2)
     {
         // inf shield
-        GOBJ *fighter = gobjlist[8];
+        GOBJ *fighter = gobj_lookup[MATCHPLINK_FIGHTER];
         while (fighter != 0)
         {
             FighterData *fighter_data = fighter->userdata;
@@ -2101,7 +2098,7 @@ void LCancel_CPUThink(GOBJ *event, GOBJ *hmn, GOBJ *cpu)
 }
 int Update_CheckPause()
 {
-    HSD_Update *update = HSD_UPDATE;
+    HSD_Update *update = stc_hsd_update;
     int isChange = 0;
 
     // get their pad
@@ -2120,7 +2117,7 @@ int Update_CheckPause()
     else if (LabOptions_General[OPTGEN_FRAME].option_val == 1)
     {
         // check if unpaused
-        if (update->pause_develop != 1)
+        if (update->pause_kind != PAUSEKIND_SYS)
         {
             // pause
             isChange = 1;
@@ -2131,7 +2128,7 @@ int Update_CheckPause()
     else
     {
         // check if paused
-        if (update->pause_develop == 1)
+        if (update->pause_kind == PAUSEKIND_SYS)
         {
             // unpause
             isChange = 1;
@@ -2145,7 +2142,7 @@ int Update_CheckAdvance()
 
     static int timer = 0;
 
-    HSD_Update *update = HSD_UPDATE;
+    HSD_Update *update = stc_hsd_update;
     int isAdvance = 0;
 
     int controller = Fighter_GetControllerPort(0);
@@ -2214,7 +2211,7 @@ void DIDraw_Init()
 }
 void DIDraw_Update()
 {
-    static ECBBones ecb_bones_def = {
+    static ECBSize ecb_size_def = {
         .topY = 9,
         .botY = 2.5,
         .left = {-3.3, 5.7},
@@ -2225,8 +2222,7 @@ void DIDraw_Update()
     if ((LabOptions_General[OPTGEN_DI].option_val == 1)) //  && (Pause_CheckStatus(1) != 2)
     {
         // loop through all fighters
-        GOBJList *gobj_list = R13_PTR(GOBJLIST);
-        GOBJ *fighter = gobj_list->fighter;
+        GOBJ *fighter = (*stc_gobj_lookup)[MATCHPLINK_FIGHTER];
         while (fighter != 0)
         {
 
@@ -2260,7 +2256,7 @@ void DIDraw_Update()
                         input_kind = PADGET_MASTER;
                     else
                         input_kind = PADGET_ENGINE; // no frame advance, use engine inputs
-                    HSD_Pad *pad = PadGet(fighter_data->player_controller_number, input_kind);
+                    HSD_Pad *pad = PadGet(fighter_data->pad_index, input_kind);
                     lstickX = pad->fstickX;
                     lstickY = pad->fstickY;
                     cstickX = pad->fsubstickX;
@@ -2269,10 +2265,10 @@ void DIDraw_Update()
                 // for CPUs
                 else
                 {
-                    lstickX = fighter_data->input.lstick_x;
-                    lstickY = fighter_data->input.lstick_y;
-                    cstickX = fighter_data->input.cstick_x;
-                    cstickY = fighter_data->input.cstick_y;
+                    lstickX = fighter_data->input.lstick.X;
+                    lstickY = fighter_data->input.lstick.Y;
+                    cstickX = fighter_data->input.cstick.X;
+                    cstickY = fighter_data->input.cstick.Y;
                 }
 
                 // get kb vector
@@ -2341,12 +2337,12 @@ void DIDraw_Update()
                 Vec3 pos = fighter_data->phys.pos;
                 ftCommonData *ftCommon = R13_PTR(-0x514C);
                 float decay = ftCommon->kb_frameDecay;
-                int hitstun_frames = AS_FLOAT(fighter_data->state_var.stateVar1);
+                int hitstun_frames = AS_FLOAT(fighter_data->state_var.state_var1);
                 int vertices_num = 0;    // used to track how many vertices will be needed
                 int override_frames = 0; // used as an alternate countdown
                 DIDrawCalculate *DICollData = calloc(sizeof(DIDrawCalculate) * hitstun_frames);
                 CollData ecb;
-                ECBBones ecb_bones;
+                ECBSize ecb_size;
 
                 // init ecb struct
                 Coll_InitECB(&ecb);
@@ -2360,24 +2356,24 @@ void DIDraw_Update()
                 {
 
                     // update bone positions.  If loop count < noECBUpdate-remaining hitlag fraes, use current ECB bottom Y offset
-                    if (vertices_num < (fighter_data->coll_data.ecb_lock - fighter_data->dmg.hitlag_frames))
+                    if (vertices_num < (fighter_data->coll_data.u.ecb_bot_lock_frames - fighter_data->dmg.hitlag_frames))
                     {
 
-                        ecb_bones.topY = fighter_data->coll_data.ecbCurr_top.Y;
-                        ecb_bones.botY = fighter_data->coll_data.ecbCurr_bot.Y;
-                        ecb_bones.left = fighter_data->coll_data.ecbCurr_left;
-                        ecb_bones.right = fighter_data->coll_data.ecbCurr_right;
+                        ecb_size.topY = fighter_data->coll_data.ecbCurr_top.Y;
+                        ecb_size.botY = fighter_data->coll_data.ecbCurr_bot.Y;
+                        ecb_size.left = fighter_data->coll_data.ecbCurr_left;
+                        ecb_size.right = fighter_data->coll_data.ecbCurr_right;
 
                         // if grounded, ECB bottom is 0
                         if (air_state == 0)
                         {
-                            ecb_bones.botY = 0;
+                            ecb_size.botY = 0;
                         }
                     }
                     else
                     {
                         // use default ecb size
-                        memcpy(&ecb_bones, &ecb_bones_def, sizeof(ECBBones));
+                        memcpy(&ecb_size, &ecb_size_def, sizeof(ECBSize));
                     }
                     // update ecb topN position
                     ecb.topN_Curr = pos;
@@ -2425,7 +2421,7 @@ void DIDraw_Update()
                         // ground coll
                         if (air_state == 0)
                         {
-                            int result = ECB_CollGround_PassLedge(&ecb, &ecb_bones);
+                            int result = ECB_CollGround_PassLedge(&ecb, &ecb_size);
                             if (result == 0)
                             {
                                 air_state = 1;
@@ -2434,7 +2430,7 @@ void DIDraw_Update()
                         // air coll
                         else
                         {
-                            ECB_CollAir(&ecb, &ecb_bones);
+                            ECB_CollAir(&ecb, &ecb_size);
                         }
 
                         // get corrected position
@@ -2535,8 +2531,8 @@ void DIDraw_Update()
                     DICollData[i].pos.X = pos.X;
                     DICollData[i].pos.Y = pos.Y;
                     DICollData[i].kb_Y = kb.Y;
-                    DICollData[i].ECBLeftY = ecb_bones.left.Y;
-                    DICollData[i].ECBTopY = ecb_bones.topY;
+                    DICollData[i].ECBLeftY = ecb_size.left.Y;
+                    DICollData[i].ECBTopY = ecb_size.topY;
 
                     // inc vertices count
                     vertices_num++;
@@ -2678,7 +2674,7 @@ void Update_Camera()
 
             // get players inputs
             FighterData *fighter_data = fighter->userdata;
-            HSD_Pad *pad = PadGet(fighter_data->player_controller_number, PADGET_MASTER);
+            HSD_Pad *pad = PadGet(fighter_data->pad_index, PADGET_MASTER);
             int held = pad->held;
             float stickX = pad->fsubstickX;
             float stickY = pad->fsubstickY;
@@ -2690,7 +2686,7 @@ void Update_Camera()
 
             if (stickX != 0 || stickY != 0)
             {
-                COBJ *cobj = COBJ_GetMatchCamera();
+                COBJ *cobj = Match_GetCObj();
 
                 // adjust pan
                 if ((held & HSD_BUTTON_A) != 0)
@@ -2764,8 +2760,8 @@ void Lab_SelectCustomTDI(GOBJ *menu_gobj)
     text_curr->align = 0;
     text_curr->kerning = 1;
     // scale canvas
-    text_curr->scale.X = MENU_CANVASSCALE;
-    text_curr->scale.Y = MENU_CANVASSCALE;
+    text_curr->viewport_scale.X = MENU_CANVASSCALE;
+    text_curr->viewport_scale.Y = MENU_CANVASSCALE;
     text_curr->trans.Z = MENU_TEXTZ;
     // create hit num
     Text_AddSubtext(text_curr, -50, 185, &nullString);
@@ -3142,7 +3138,7 @@ GOBJ *Record_Init()
 
     // create cobj
     GOBJ *cam_gobj = GObj_Create(19, 20, 0);
-    COBJDesc ***dmgScnMdls = File_GetSymbol(ACCESS_PTR(0x804d6d5c), 0x803f94d0);
+    COBJDesc ***dmgScnMdls = Archive_GetPublicAddress(*stc_ifall_archive, 0x803f94d0);
     COBJDesc *cam_desc = dmgScnMdls[1][0];
     COBJ *rec_cobj = COBJ_LoadDesc(cam_desc);
     // init camera
@@ -3179,8 +3175,8 @@ GOBJ *Record_Init()
     Text *text = Text_CreateText(2, canvas_index);
     text->align = 1;
     text->kerning = 1;
-    text->scale.X = INFDISPTEXT_SCALE;
-    text->scale.Y = INFDISPTEXT_SCALE;
+    text->viewport_scale.X = INFDISPTEXT_SCALE;
+    text->viewport_scale.Y = INFDISPTEXT_SCALE;
 
     // Get text positions
     JOBJ *text_joint[2];
@@ -3466,7 +3462,7 @@ void Record_Update(int ply, RecInputData *input_data, int rec_mode)
     int end_frame = rec_start + input_data->num;
 
     // Get HSD Pad
-    HSD_Pad *pad = PadGet(fighter_data->player_controller_number, PADGET_ENGINE);
+    HSD_Pad *pad = PadGet(fighter_data->pad_index, PADGET_ENGINE);
 
     // if the current frame before the recording ends
     if ((curr_frame) < (rec_start + REC_LENGTH))
@@ -3902,7 +3898,7 @@ void Record_MemcardLoad(int slot, int file_no)
         memcard_save.x4 = 3;
         memcard_save.size = file_size;
         memcard_save.xc = -1;
-        Memcard_LoadSnapshot(slot, filename, &memcard_save, &stc_memcard_info->file_name, 0, 0, 0);
+        Memcard_ReqSaveLoad(slot, filename, &memcard_save, &stc_memcard_info->file_name, 0, 0, 0);
 
         // wait to load
         int memcard_status = Memcard_CheckStatus();
@@ -4333,8 +4329,8 @@ void Export_SelCardInit(GOBJ *export_gobj)
     text_misc->align = 1;
     text_misc->kerning = 1;
     // scale canvas
-    text_misc->scale.X = MENU_CANVASSCALE;
-    text_misc->scale.Y = MENU_CANVASSCALE;
+    text_misc->viewport_scale.X = MENU_CANVASSCALE;
+    text_misc->viewport_scale.Y = MENU_CANVASSCALE;
     text_misc->trans.Z = MENU_TEXTZ;
 
     // create title text
@@ -4346,8 +4342,8 @@ void Export_SelCardInit(GOBJ *export_gobj)
     // scale canvas
     text_title->trans.X = -23;
     text_title->trans.Y = -18;
-    text_title->scale.X = MENU_CANVASSCALE * 2;
-    text_title->scale.Y = MENU_CANVASSCALE * 2;
+    text_title->viewport_scale.X = MENU_CANVASSCALE * 2;
+    text_title->viewport_scale.Y = MENU_CANVASSCALE * 2;
     text_title->trans.Z = MENU_TEXTZ;
 
     // create desc text
@@ -4359,8 +4355,8 @@ void Export_SelCardInit(GOBJ *export_gobj)
     // scale canvas
     text_desc->trans.X = -23;
     text_desc->trans.Y = 12;
-    text_desc->scale.X = MENU_CANVASSCALE;
-    text_desc->scale.Y = MENU_CANVASSCALE;
+    text_desc->viewport_scale.X = MENU_CANVASSCALE;
+    text_desc->viewport_scale.Y = MENU_CANVASSCALE;
     text_desc->trans.Z = MENU_TEXTZ;
 
     Text_AddSubtext(text_title, 0, 0, "Select a Memory Card"); // add title
@@ -4568,8 +4564,8 @@ void Export_EnterNameInit(GOBJ *export_gobj)
     // scale canvas
     text_keyboard->trans.X = EXP_KEYBOARD_X;
     text_keyboard->trans.Y = EXP_KEYBOARD_Y;
-    text_keyboard->scale.X = MENU_CANVASSCALE * EXP_KEYBOARD_SIZE;
-    text_keyboard->scale.Y = MENU_CANVASSCALE * EXP_KEYBOARD_SIZE;
+    text_keyboard->viewport_scale.X = MENU_CANVASSCALE * EXP_KEYBOARD_SIZE;
+    text_keyboard->viewport_scale.Y = MENU_CANVASSCALE * EXP_KEYBOARD_SIZE;
     // init keyboard
     for (int i = 0; i < 4; i++)
     {
@@ -4597,8 +4593,8 @@ void Export_EnterNameInit(GOBJ *export_gobj)
     // scale canvas
     text_filedetails->trans.X = EXP_FILEDETAILS_X;
     text_filedetails->trans.Y = EXP_FILEDETAILS_Y;
-    text_filedetails->scale.X = MENU_CANVASSCALE * EXP_FILEDETAILS_SIZE;
-    text_filedetails->scale.Y = MENU_CANVASSCALE * EXP_FILEDETAILS_SIZE;
+    text_filedetails->viewport_scale.X = MENU_CANVASSCALE * EXP_FILEDETAILS_SIZE;
+    text_filedetails->viewport_scale.Y = MENU_CANVASSCALE * EXP_FILEDETAILS_SIZE;
 
     Text_AddSubtext(text_filedetails, 0, 0, "Stage: %s\nHMN: %s\nCPU: %s\n\nSlot %s", stage_name, hmn_name, cpu_name, slots_names[export_data->slot]); // add title
 
@@ -4611,8 +4607,8 @@ void Export_EnterNameInit(GOBJ *export_gobj)
     // scale canvas
     text_title->trans.X = -23;
     text_title->trans.Y = -18;
-    text_title->scale.X = MENU_CANVASSCALE * 2;
-    text_title->scale.Y = MENU_CANVASSCALE * 2;
+    text_title->viewport_scale.X = MENU_CANVASSCALE * 2;
+    text_title->viewport_scale.Y = MENU_CANVASSCALE * 2;
     text_title->trans.Z = MENU_TEXTZ;
     Text_AddSubtext(text_title, 0, 0, "Enter File Name");
 
@@ -4625,8 +4621,8 @@ void Export_EnterNameInit(GOBJ *export_gobj)
     // scale canvas
     text_desc->trans.X = -23;
     text_desc->trans.Y = 12;
-    text_desc->scale.X = MENU_CANVASSCALE;
-    text_desc->scale.Y = MENU_CANVASSCALE;
+    text_desc->viewport_scale.X = MENU_CANVASSCALE;
+    text_desc->viewport_scale.Y = MENU_CANVASSCALE;
     Text_AddSubtext(text_desc, 0, 0, "A: Select  B: Backspace  Y: Caps  Start: Confirm"); // add description
     Text_AddSubtext(text_desc, 0, 40, "     X: Space  L: Cursor left  R: Cursor right");  // add description
 
@@ -4644,8 +4640,8 @@ void Export_EnterNameInit(GOBJ *export_gobj)
     text_filename->trans.Y = EXP_FILENAME_Y;
     text_filename->aspect.X = EXP_FILENAME_ASPECTX;
     text_filename->aspect.Y = EXP_FILENAME_ASPECTY;
-    text_filename->scale.X = MENU_CANVASSCALE * EXP_FILENAME_SIZE;
-    text_filename->scale.Y = MENU_CANVASSCALE * EXP_FILENAME_SIZE;
+    text_filename->viewport_scale.X = MENU_CANVASSCALE * EXP_FILENAME_SIZE;
+    text_filename->viewport_scale.Y = MENU_CANVASSCALE * EXP_FILENAME_SIZE;
     // init filename buffer
     export_data->filename_buffer[0] = '_';
     export_data->filename_buffer[1] = '\0';
@@ -4905,8 +4901,8 @@ void Export_ConfirmInit(GOBJ *export_gobj)
     // scale canvas
     confirm_text->trans.X = 0;
     confirm_text->trans.Y = 0;
-    confirm_text->scale.X = MENU_CANVASSCALE;
-    confirm_text->scale.Y = MENU_CANVASSCALE;
+    confirm_text->viewport_scale.X = MENU_CANVASSCALE;
+    confirm_text->viewport_scale.Y = MENU_CANVASSCALE;
     confirm_text->trans.Z = MENU_TEXTZ;
     Text_AddSubtext(confirm_text, 0, -40, "Save File to Slot %s?", slots_names[export_data->slot]);
     int yes_subtext = Text_AddSubtext(confirm_text, -60, 20, "Yes");
@@ -4997,8 +4993,8 @@ int Export_ConfirmThink(GOBJ *export_gobj)
                 // scale canvas
                 confirm_text->trans.X = 0;
                 confirm_text->trans.Y = 0;
-                confirm_text->scale.X = MENU_CANVASSCALE;
-                confirm_text->scale.Y = MENU_CANVASSCALE;
+                confirm_text->viewport_scale.X = MENU_CANVASSCALE;
+                confirm_text->viewport_scale.Y = MENU_CANVASSCALE;
                 confirm_text->trans.Z = MENU_TEXTZ;
                 Text_AddSubtext(confirm_text, 0, -20, "");
 
@@ -5194,7 +5190,7 @@ int Export_Process(GOBJ *export_gobj)
         memcard_save.x4 = 3;
         memcard_save.size = stc_transfer_buf_size;
         memcard_save.xc = -1;
-        Memcard_CreateSnapshot(slot, &filename, &memcard_save, stc_memcard_unk, stc_memcard_info->file_name, stc_lab_data->save_banner, stc_lab_data->save_icon, 0);
+        Memcard_ReqSaveCreate(slot, &filename, &memcard_save, stc_memcard_unk, stc_memcard_info->file_name, stc_lab_data->save_banner, stc_lab_data->save_icon, 0);
 
         // change status
         export_status = EXSTAT_SAVEWAIT;
@@ -5354,7 +5350,7 @@ void Event_Init(GOBJ *gobj)
     event_vars = *event_vars_ptr;
 
     // get this events assets
-    stc_lab_data = File_GetSymbol(event_vars->event_archive, "lab");
+    stc_lab_data = Archive_GetPublicAddress(event_vars->event_archive, "lab");
 
     // Init Info Display
     InfoDisplay_Init();
@@ -5369,7 +5365,7 @@ void Event_Init(GOBJ *gobj)
     Inputs_Init();
 
     // store hsd_update functions
-    HSD_Update *hsd_update = HSD_UPDATE;
+    HSD_Update *hsd_update = stc_hsd_update;
     hsd_update->checkPause = Update_CheckPause;
     hsd_update->checkAdvance = Update_CheckAdvance;
 
@@ -5420,7 +5416,7 @@ void Event_Think(GOBJ *event)
     FighterData *hmn_data = hmn->userdata;
     GOBJ *cpu = Fighter_GetGObj(1);
     FighterData *cpu_data = cpu->userdata;
-    HSD_Pad *pad = PadGet(hmn_data->player_controller_number, PADGET_ENGINE);
+    HSD_Pad *pad = PadGet(hmn_data->pad_index, PADGET_ENGINE);
 
     // lock percent if enabled
     if (LabOptions_CPU[OPTCPU_LOCKPCNT].option_val)
@@ -5467,7 +5463,7 @@ void Event_Think(GOBJ *event)
         // if new state, apply colanim
         if (cpu_data->TM.state_frame <= 1)
         {
-            Fighter_ApplyOverlay(cpu_data, INTANG_COLANIM, 0);
+            Fighter_ColAnim_Apply(cpu_data, INTANG_COLANIM, 0);
         }
     }
     else
@@ -5479,7 +5475,7 @@ void Event_Think(GOBJ *event)
     // apply invisibility
     int invisible = LabOptions_Tech[OPTTECH_INVISIBLE].option_val;
     if (invisible) {
-        if (is_tech_anim(cpu_data->state))
+        if (is_tech_anim(cpu_data->state_id))
         {
             // get distinguishable frame from lookup table
             int char_id = cpu_data->kind;
@@ -5583,8 +5579,8 @@ void Event_Think(GOBJ *event)
 
                                         // update camera box
                                         Fighter_UpdateCameraBox(this_fighter);
-                                        this_fighter_data->cameraBox->boundleft_curr = this_fighter_data->cameraBox->boundleft_proj;
-                                        this_fighter_data->cameraBox->boundright_curr = this_fighter_data->cameraBox->boundright_proj;
+                                        this_fighter_data->camera_subject->boundleft_curr = this_fighter_data->camera_subject->boundleft_proj;
+                                        this_fighter_data->camera_subject->boundright_curr = this_fighter_data->camera_subject->boundright_proj;
 
                                         // init CPU logic (for nana's popo position history...)
                                         int cpu_kind = Fighter_GetCPUKind(this_fighter_data->ply);
@@ -5648,7 +5644,7 @@ void Event_Think(GOBJ *event)
     case (RECMODE_CPU_OFF):
     {
         Fighter_SetSlotType(cpu_data->ply, 1);
-        cpu_data->player_controller_number = stc_cpu_controller;
+        cpu_data->pad_index = stc_cpu_controller;
 
         LCancel_CPUThink(event, hmn, cpu);
 
@@ -5657,7 +5653,7 @@ void Event_Think(GOBJ *event)
     case (RECMODE_CPU_PLAYBACK):
     {
         Fighter_SetSlotType(cpu_data->ply, 0);
-        cpu_data->player_controller_number = stc_cpu_controller;
+        cpu_data->pad_index = stc_cpu_controller;
         break;
     }
     case (RECMODE_CPU_CONTROL):
@@ -5666,7 +5662,7 @@ void Event_Think(GOBJ *event)
         cpu_control = true;
 
         Fighter_SetSlotType(cpu_data->ply, 0);
-        cpu_data->player_controller_number = stc_hmn_controller;
+        cpu_data->pad_index = stc_hmn_controller;
 
         break;
     }
@@ -5689,11 +5685,11 @@ void Event_Think(GOBJ *event)
         }
 
         if (playback_cancelled || hmn_mode != RECMODE_HMN_PLAYBACK)
-            hmn_data->player_controller_number = stc_hmn_controller;
+            hmn_data->pad_index = stc_hmn_controller;
         else
-            hmn_data->player_controller_number = stc_null_controller;
+            hmn_data->pad_index = stc_null_controller;
     } else {
-        hmn_data->player_controller_number = stc_null_controller;
+        hmn_data->pad_index = stc_null_controller;
     }
 
     return;

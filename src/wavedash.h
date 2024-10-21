@@ -91,7 +91,7 @@ struct TargetData
     int line_index;
     float left;
     float right;
-    CameraBox *cam;
+    CmSubject *cam;
 };
 
 float Bezier(float time, float start, float end);

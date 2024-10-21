@@ -4,9 +4,11 @@
 #include "include/structs.h"
 #include "include/datatypes.h"
 
+#include "include/useful.h"
+#include "include/gx.h"
+#include "include/1p.h"
 #include "include/audio.h"
-#include "include/archive.h"
-#include "include/boneset.h"
+#include "include/dynamics.h"
 #include "include/match.h"
 #include "include/collision.h"
 #include "include/color.h"
@@ -24,10 +26,8 @@
 #include "include/obj.h"
 #include "include/offsets.h"
 #include "include/preload.h"
-#include "include/result.h"
 #include "include/scene.h"
 #include "include/stage.h"
 #include "include/text.h"
-#include "include/useful.h"
 
 #endif

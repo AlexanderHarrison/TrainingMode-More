@@ -15,12 +15,12 @@ static GXColor text_gold = {255, 211, 0, 255};
 static EventDesc *event_desc;
 
 // OnLoad
-void OnCSSLoad(ArchiveInfo *archive)
+void OnCSSLoad(HSD_Archive *archive)
 {
     event_vars = *event_vars_ptr;
 
     // get assets from this file
-    stc_import_assets = File_GetSymbol(archive, "labCSS");
+    stc_import_assets = Archive_GetPublicAddress(archive, "labCSS");
 
     // Create a cobj for the menu
     COBJ *cam_cobj = COBJ_LoadDesc(stc_import_assets->import_cam);
@@ -134,8 +134,8 @@ void Cam_Button_Create()
     button_text->kerning = 1;
     button_text->align = 1;
     button_text->use_aspect = 1;
-    button_text->scale.X = (scale->X * 0.01) * 3;
-    button_text->scale.Y = (scale->Y * 0.01) * 3;
+    button_text->viewport_scale.X = (scale->X * 0.01) * 3;
+    button_text->viewport_scale.Y = (scale->Y * 0.01) * 3;
     button_text->trans.X = button_jobj->trans.X + (0 * (scale->X / 4.0));
     button_text->trans.Y = (button_jobj->trans.Y * -1) + (-1.6 * (scale->Y / 4.0));
 
@@ -199,8 +199,8 @@ void Hazards_Button_Create()
     hazard_button_text->kerning = 1;
     hazard_button_text->align = 1;
     hazard_button_text->use_aspect = 1;
-    hazard_button_text->scale.X = (scale->X * 0.01) * 2;
-    hazard_button_text->scale.Y = (scale->Y * 0.01) * 3;
+    hazard_button_text->viewport_scale.X = (scale->X * 0.01) * 2;
+    hazard_button_text->viewport_scale.Y = (scale->Y * 0.01) * 3;
     hazard_button_text->trans.X = button_jobj->trans.X + (0 * (scale->X / 4.0));
     hazard_button_text->trans.Y = (button_jobj->trans.Y * -1) + (-1.6 * (scale->Y / 4.0));
 
@@ -273,8 +273,8 @@ GOBJ *Menu_Create()
     title_text->trans.X = -28;
     title_text->trans.Y = -21;
     title_text->trans.Z = menu_jobj->trans.Z;
-    title_text->scale.X = (menu_jobj->scale.X * 0.01) * 11;
-    title_text->scale.Y = (menu_jobj->scale.Y * 0.01) * 11;
+    title_text->viewport_scale.X = (menu_jobj->scale.X * 0.01) * 11;
+    title_text->viewport_scale.Y = (menu_jobj->scale.Y * 0.01) * 11;
     Text_AddSubtext(title_text, 0, 0, "-");
     import_data.title_text = title_text;
     Text *desc_text = Text_CreateText(SIS_ID, import_data.canvas);
@@ -284,8 +284,8 @@ GOBJ *Menu_Create()
     desc_text->trans.X = -28;
     desc_text->trans.Y = 14.5;
     desc_text->trans.Z = menu_jobj->trans.Z;
-    desc_text->scale.X = (menu_jobj->scale.X * 0.01) * 5;
-    desc_text->scale.Y = (menu_jobj->scale.Y * 0.01) * 5;
+    desc_text->viewport_scale.X = (menu_jobj->scale.X * 0.01) * 5;
+    desc_text->viewport_scale.Y = (menu_jobj->scale.Y * 0.01) * 5;
     Text_AddSubtext(desc_text, 0, 0, "-");
     import_data.desc_text = desc_text;
 
@@ -380,8 +380,8 @@ void Menu_SelCard_Init(GOBJ *menu_gobj)
     memcard_text->kerning = 1;
     memcard_text->align = 1;
     memcard_text->trans.Z = menu_jobj->trans.Z + 2;
-    memcard_text->scale.X = (menu_jobj->scale.X * 0.01) * 5;
-    memcard_text->scale.Y = (menu_jobj->scale.Y * 0.01) * 5;
+    memcard_text->viewport_scale.X = (menu_jobj->scale.X * 0.01) * 5;
+    memcard_text->viewport_scale.Y = (menu_jobj->scale.Y * 0.01) * 5;
     import_data.option_text = memcard_text;
     Text_AddSubtext(memcard_text, -159, 45, "Slot A");
     Text_AddSubtext(memcard_text, 159, 45, "Slot B");
@@ -513,8 +513,8 @@ void Menu_SelFile_Init(GOBJ *menu_gobj)
     filename_text->trans.X = -27.8;
     filename_text->trans.Y = -13.6;
     filename_text->trans.Z = menu_jobj->trans.Z;
-    filename_text->scale.X = (menu_jobj->scale.X * 0.01) * 5;
-    filename_text->scale.Y = (menu_jobj->scale.Y * 0.01) * 5;
+    filename_text->viewport_scale.X = (menu_jobj->scale.X * 0.01) * 5;
+    filename_text->viewport_scale.Y = (menu_jobj->scale.Y * 0.01) * 5;
     import_data.filename_text = filename_text;
     for (int i = 0; i < IMPORT_FILESPERPAGE; i++)
     {
@@ -537,8 +537,8 @@ void Menu_SelFile_Init(GOBJ *menu_gobj)
     fileinfo_text->use_aspect = 1;
     fileinfo_text->aspect.X = 300;
     fileinfo_text->trans.Z = menu_jobj->trans.Z;
-    fileinfo_text->scale.X = (menu_jobj->scale.X * 0.01) * 4.5;
-    fileinfo_text->scale.Y = (menu_jobj->scale.Y * 0.01) * 4.5;
+    fileinfo_text->viewport_scale.X = (menu_jobj->scale.X * 0.01) * 4.5;
+    fileinfo_text->viewport_scale.Y = (menu_jobj->scale.Y * 0.01) * 4.5;
     import_data.fileinfo_text = fileinfo_text;
     Text_AddSubtext(fileinfo_text, FILEINFO_X, FILEINFO_STAGEY, "Stage: ");
     Text_AddSubtext(fileinfo_text, FILEINFO_X, FILEINFO_HMNY, "HMN: ");
@@ -943,8 +943,8 @@ void Menu_Confirm_Init(GOBJ *menu_gobj, int kind)
     text->use_aspect = 1;
     text->aspect.X = 380;
     text->trans.Z = confirm_jobj->trans.Z;
-    text->scale.X = (confirm_jobj->scale.X * 0.01) * 6;
-    text->scale.Y = (confirm_jobj->scale.Y * 0.01) * 6;
+    text->viewport_scale.X = (confirm_jobj->scale.X * 0.01) * 6;
+    text->viewport_scale.Y = (confirm_jobj->scale.Y * 0.01) * 6;
     import_data.confirm.text = text;
 
     // decide text based on kind
@@ -1088,18 +1088,18 @@ void Menu_Confirm_Think(GOBJ *menu_gobj)
             }
 
             // set fighters
-            css_minorscene->vs_data.match_init.playerData[hmn_index].kind = hmn_kind;
+            css_minorscene->vs_data.match_init.playerData[hmn_index].c_kind = hmn_kind;
             css_minorscene->vs_data.match_init.playerData[hmn_index].costume = hmn_costume; // header->metadata.hmn_costume;
-            preload->fighters[hmn_index].kind = hmn_kind;
-            preload->fighters[hmn_index].costume = hmn_costume;
-            css_minorscene->vs_data.match_init.playerData[cpu_index].kind = cpu_kind;
+            preload->queued.fighters[hmn_index].kind = hmn_kind;
+            preload->queued.fighters[hmn_index].costume = hmn_costume;
+            css_minorscene->vs_data.match_init.playerData[cpu_index].c_kind = cpu_kind;
             css_minorscene->vs_data.match_init.playerData[cpu_index].costume = cpu_costume; // header->metadata.cpu_costume;
-            preload->fighters[cpu_index].kind = cpu_kind;
-            preload->fighters[cpu_index].costume = cpu_costume;
+            preload->queued.fighters[cpu_index].kind = cpu_kind;
+            preload->queued.fighters[cpu_index].costume = cpu_costume;
 
             // set stage
             css_minorscene->vs_data.match_init.stage = stage_kind;
-            preload->stage = stage_kind;
+            preload->queued.stage = stage_kind;
 
             // load files
             Preload_Update();

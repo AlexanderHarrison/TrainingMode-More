@@ -86,7 +86,7 @@ void Event_Init(GOBJ *gobj)
     event_vars = *event_vars_ptr;
 
     // get l-cancel assets
-    event_data->assets = File_GetSymbol(event_vars->event_archive, "wavedash");
+    event_data->assets = Archive_GetPublicAddress(event_vars->event_archive, "wavedash");
 
     // create HUD
     Wavedash_Init(event_data);
@@ -121,8 +121,8 @@ void Event_Exit()
     Match_EndVS();
 
     // unfreeze
-    HSD_Update *update = HSD_UPDATE;
-    update->pause_develop = 0;
+    HSD_Update *update = stc_hsd_update;
+    update->pause_kind = PAUSEKIND_NONE;
     return;
 }
 
@@ -132,8 +132,7 @@ void Wavedash_Init(WavedashData *event_data)
 
     // create hud cobj
     GOBJ *hudcam_gobj = GObj_Create(19, 20, 0);
-    ArchiveInfo **ifall_archive = 0x804d6d5c;
-    COBJDesc ***dmgScnMdls = File_GetSymbol(*ifall_archive, 0x803f94d0);
+    COBJDesc ***dmgScnMdls = Archive_GetPublicAddress(*stc_ifall_archive, 0x803f94d0);
     COBJDesc *cam_desc = dmgScnMdls[1][0];
     COBJ *hud_cobj = COBJ_LoadDesc(cam_desc);
     // init camera
@@ -173,8 +172,8 @@ void Wavedash_Init(WavedashData *event_data)
         // adjust scale
         Vec3 *scale = &hud_jobj->scale;
         // text scale
-        hud_text->scale.X = (scale->X * 0.01) * TEXT_SCALE;
-        hud_text->scale.Y = (scale->Y * 0.01) * TEXT_SCALE;
+        hud_text->viewport_scale.X = (scale->X * 0.01) * TEXT_SCALE;
+        hud_text->viewport_scale.Y = (scale->Y * 0.01) * TEXT_SCALE;
         hud_text->aspect.X = 165;
 
         // text position
@@ -201,23 +200,23 @@ void Wavedash_Think(WavedashData *event_data, FighterData *hmn_data)
             event_data->since_wavedash++;
 
         // check to enter wavedash state
-        if ((hmn_data->state == ASID_LANDINGFALLSPECIAL) && hmn_data->TM.state_prev[2] == ASID_KNEEBEND)
+        if ((hmn_data->state_id == ASID_LANDINGFALLSPECIAL) && hmn_data->TM.state_prev[2] == ASID_KNEEBEND)
         {
             event_data->is_wavedashing = 1;
             event_data->since_wavedash = 0;
         }
 
         // check to null timer
-        if (((hmn_data->state >= ASID_WALKSLOW) && (hmn_data->state <= ASID_KNEEBEND)) ||                    // no ground movement or jumping
+        if (((hmn_data->state_id >= ASID_WALKSLOW) && (hmn_data->state_id <= ASID_KNEEBEND)) ||                    // no ground movement or jumping
             (hmn_data->phys.air_state == 1) ||                                                               // airborne
-            ((hmn_data->attack_kind >= ATKKIND_SPECIALN) && (hmn_data->attack_kind <= ATKKIND_SPECIALLW)) || // any special move
-            ((hmn_data->state >= ASID_ESCAPEF) && (hmn_data->state >= ASID_ESCAPEB)))                        // rolls
+            ((hmn_data->atk_kind >= ATKKIND_SPECIALN) && (hmn_data->atk_kind <= ATKKIND_SPECIALLW)) || // any special move
+            ((hmn_data->state_id >= ASID_ESCAPEF) && (hmn_data->state_id >= ASID_ESCAPEB)))                        // rolls
             event_data->since_wavedash = 255;
     }
     // check to exit is_wavedashing
     if (event_data->is_wavedashing == 1)
     {
-        if ((hmn_data->state != ASID_LANDINGFALLSPECIAL))
+        if ((hmn_data->state_id != ASID_LANDINGFALLSPECIAL))
             event_data->is_wavedashing = 0;
     }
 
@@ -226,7 +225,7 @@ void Wavedash_Think(WavedashData *event_data, FighterData *hmn_data)
     JOBJ *hud_jobj = event_data->hud.gobj->hsd_object;
 
     // start sequence on jump squat
-    if ((hmn_data->state == ASID_KNEEBEND) && (hmn_data->TM.state_frame == 0))
+    if ((hmn_data->state_id == ASID_KNEEBEND) && (hmn_data->TM.state_frame == 0))
     {
         event_data->is_airdodge = 0;
 
@@ -245,7 +244,7 @@ void Wavedash_Think(WavedashData *event_data, FighterData *hmn_data)
         event_data->timer++; // inc timer
 
         // if grounded and not in kneebend, stop sequence
-        if ((hmn_data->state != ASID_KNEEBEND) && (hmn_data->state != ASID_LANDINGFALLSPECIAL) && (hmn_data->phys.air_state == 0))
+        if ((hmn_data->state_id != ASID_KNEEBEND) && (hmn_data->state_id != ASID_LANDINGFALLSPECIAL) && (hmn_data->phys.air_state == 0))
         {
             event_data->timer = -1;
             event_data->is_airdodge = 0;
@@ -265,11 +264,11 @@ void Wavedash_Think(WavedashData *event_data, FighterData *hmn_data)
 
             // save airdodge angle
             if ((event_data->is_airdodge == 0) &&
-                (((hmn_data->state == ASID_ESCAPEAIR) && (hmn_data->TM.state_frame == 0)) || // if entered airdodge
-                 ((hmn_data->state == ASID_LANDINGFALLSPECIAL) && (hmn_data->TM.state_frame == 0) && (hmn_data->TM.state_prev[0] == ASID_ESCAPEAIR) && (hmn_data->TM.state_prev_frames[0] == 0))))
+                (((hmn_data->state_id == ASID_ESCAPEAIR) && (hmn_data->TM.state_frame == 0)) || // if entered airdodge
+                 ((hmn_data->state_id == ASID_LANDINGFALLSPECIAL) && (hmn_data->TM.state_frame == 0) && (hmn_data->TM.state_prev[0] == ASID_ESCAPEAIR) && (hmn_data->TM.state_prev_frames[0] == 0))))
             {
                 // save airdodge angle
-                float angle = atan2(hmn_data->input.lstick_y, hmn_data->input.lstick_x) - -(M_PI / 2);
+                float angle = atan2(hmn_data->input.lstick.Y, hmn_data->input.lstick.X) - -(M_PI / 2);
                 event_data->wd_angle = angle;
 
                 event_data->is_early_airdodge = 0;
@@ -281,7 +280,7 @@ void Wavedash_Think(WavedashData *event_data, FighterData *hmn_data)
             void *mat_anim = 0;
 
             // look for successful WD
-            if ((hmn_data->state == ASID_LANDINGFALLSPECIAL) && (hmn_data->TM.state_frame == 0) && // is in special landing
+            if ((hmn_data->state_id == ASID_LANDINGFALLSPECIAL) && (hmn_data->TM.state_frame == 0) && // is in special landing
                 (hmn_data->TM.state_prev[0] == ASID_ESCAPEAIR) &&                                  // came from airdodge
                 (hmn_data->TM.state_prev[2] == ASID_KNEEBEND))                                     // came from jump
             {
@@ -299,8 +298,8 @@ void Wavedash_Think(WavedashData *event_data, FighterData *hmn_data)
             }
 
             // look for failed WD
-            else if ((event_data->is_early_airdodge == 1) && (((hmn_data->state == ASID_JUMPF) || (hmn_data->state == ASID_JUMPB)) && (hmn_data->TM.state_frame >= 10)) ||
-                     ((hmn_data->state == ASID_ESCAPEAIR) && (hmn_data->TM.state_frame >= 10) && (hmn_data->TM.state_prev[1] == ASID_KNEEBEND)))
+            else if ((event_data->is_early_airdodge == 1) && (((hmn_data->state_id == ASID_JUMPF) || (hmn_data->state_id == ASID_JUMPB)) && (hmn_data->TM.state_frame >= 10)) ||
+                     ((hmn_data->state_id == ASID_ESCAPEAIR) && (hmn_data->TM.state_frame >= 10) && (hmn_data->TM.state_prev[1] == ASID_KNEEBEND)))
             {
                 is_finished = 1;
                 mat_anim = event_data->assets->hudmatanim[1];
@@ -344,7 +343,7 @@ void Wavedash_Think(WavedashData *event_data, FighterData *hmn_data)
 
                                 // enter wait
                                 ActionStateChange(0, 1, -1, this_fighter, ASID_WAIT, 0, 0);
-                                this_fighter_data->stateBlend = 0;
+                                this_fighter_data->state.blend = 0;
 
                                 // update ECB
                                 this_fighter_data->coll_data.topN_Curr = this_fighter_data->phys.pos; // move current ECB location to new position
@@ -353,8 +352,8 @@ void Wavedash_Think(WavedashData *event_data, FighterData *hmn_data)
 
                                 // update camera box
                                 Fighter_UpdateCameraBox(this_fighter);
-                                this_fighter_data->cameraBox->boundleft_curr = this_fighter_data->cameraBox->boundleft_proj;
-                                this_fighter_data->cameraBox->boundright_curr = this_fighter_data->cameraBox->boundright_proj;
+                                this_fighter_data->camera_subject->boundleft_curr = this_fighter_data->camera_subject->boundleft_proj;
+                                this_fighter_data->camera_subject->boundright_curr = this_fighter_data->camera_subject->boundright_proj;
 
                                 // init CPU logic (for nana's popo position history...)
                                 int cpu_kind = Fighter_GetCPUKind(this_fighter_data->ply);
@@ -640,7 +639,7 @@ GOBJ *Target_Spawn(WavedashData *event_data, FighterData *hmn_data)
         aura_jobj->rot.Z = -1 * atan2(ray_angle.X, ray_angle.Y);
 
         // create camera box
-        CameraBox *cam = CameraBox_Alloc();
+        CmSubject *cam = CameraSubject_Alloc();
         cam->boundleft_proj = -10;
         cam->boundright_proj = 10;
         cam->boundtop_proj = 10;
@@ -695,7 +694,7 @@ void Target_Think(GOBJ *target_gobj)
     aura_jobj->rot.Z = -1 * atan2(slope.X, slope.Y);
 
     // update camerabox position
-    CameraBox *cam = target_data->cam;
+    CmSubject *cam = target_data->cam;
     cam->cam_pos.X = target_data->pos.X;
     cam->cam_pos.Y = target_data->pos.Y + 15;
     cam->cam_pos.Z = target_data->pos.Z;
@@ -747,7 +746,7 @@ void Target_Think(GOBJ *target_gobj)
         if (JOBJ_CheckAObjEnd(target_jobj) == 0)
         {
             // destroy camera
-            CameraBox_Destroy(target_data->cam);
+            CameraSubject_Destroy(target_data->cam);
 
             // destroy this target
             GObj_Destroy(target_gobj);
@@ -838,7 +837,7 @@ Tips_Think(WavedashData *event_data, FighterData *hmn_data)
         if (event_data->since_wavedash <= 10)
         {
             // look for frame 1 of guard off
-            if ((hmn_data->state == ASID_GUARDOFF) && (hmn_data->TM.state_frame == 0) &&                  // just let go of shield
+            if ((hmn_data->state_id == ASID_GUARDOFF) && (hmn_data->TM.state_frame == 0) &&                  // just let go of shield
                 ((hmn_data->TM.state_prev[0] == ASID_GUARD) && (hmn_data->TM.state_prev_frames[0] == 1))) // only guarded for 1 frame
             {
                 event_data->tip.shield_num++;
