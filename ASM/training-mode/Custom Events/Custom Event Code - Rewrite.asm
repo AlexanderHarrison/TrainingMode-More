@@ -99,6 +99,7 @@ LegacyEvent:
 
 #######################
 Minigames:
+    bl 0x0              # Slalom
     bl Eggs
     bl Multishine
     bl Reaction
