@@ -15,30 +15,31 @@
 ## Store Text Info here ##
 ##########################################################
 
-    backup
+    backupall
+
     mr player, r31
     lwz playerdata, 0x2c(player)
 
     # Check For Not JumpSqaut
     lwz r3, 0x10(playerdata)
     cmpwi r3, 0x18
-    beq Moonwalk_Exit
+    beq Exit
 
     # CHECK IF ENABLED
-    li r0, OSD.ActOoJumpSquat                     # OSD Menu ID
+    li r0, OSD.ActOoJumpSquat                     # OSD ID
     # lwz r4, -0xdbc(rtoc) #get frame data toggle bits
     lwz r4, -0x77C0(r13)
     lwz r4, 0x1F24(r4)
     li r3, 1
     slw r0, r3, r0
     and. r0, r0, r4
-    beq Moonwalk_Exit
+    beq Exit
 
 CheckForFollower:
     mr r3, playerdata
     branchl r12, 0x80005510
     cmpwi r3, 0x1
-    beq Moonwalk_Exit
+    beq Exit
 
     bl CreateText
 
@@ -74,7 +75,7 @@ StoreTextColor:
     lfs f2, -0x37B0(rtoc)           # shift down on Y axis
     branchl r12, 0x803a6b98
 
-    b Moonwalk_Exit
+    b Exit
 
 CreateText:
     mflr r0
@@ -84,7 +85,7 @@ CreateText:
     mr r3, playerdata               # backup playerdata pointer
     li r4, 60                       # display for 60 frames
     li r5, 0                        # Area to Display (0-2)
-    li r6, 19                       # Window ID(Unique to This Display)
+    li r6, OSD.ActOoJumpSquat       # Window ID (Unique to This Display)
     branchl r12, TextCreateFunction # create text custom function
 
     mr text, r3                     # backup text pointer
@@ -109,6 +110,6 @@ BottomText:
 
 ##############################
 
-Moonwalk_Exit:
-    restore
+Exit:
+    restoreall
     lwz r0, 0x0024(sp)
